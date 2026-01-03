@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %} {% block content %}
+<form method="POST">
+  <label for="name">name:</label>
+  <input id="name" name="name" type="text" value="{{ oldData.name }}" />
+  {{ errors.name | first }}
+
+  <br />
+  <label for="email">email:</label>
+  <input id="email" name="email" type="email" value="{{ oldData.email }}" />
+  {{ errors.email | first }}
+
+  <br />
+  <label for="password">password:</label>
+  <input id="password" name="password" type="password" value="" />
+  {{ errors.password | first }}
+
+  <br />
+  <label for="confirmpassword">confirm password:</label>
+  <input id="confirmpassword" name="confirmPassword" type="password" value="" />
+  {{ errors.confirmPassword | first }}
+
+  <br />
+  <input id="submitbtn" type="submit" value="register" />
+</form>
+{% endblock %}

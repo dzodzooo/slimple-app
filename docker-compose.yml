@@ -1,0 +1,33 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: "slimple-app"
+    volumes:
+      - D:\posao\konkursi\KP\course\slimple-project:/var/www/html
+    ports:
+      - "3000:80"
+    environment:
+      - DB_NAME
+      - DB_USER
+      - DB_PASSWORD
+      - DB_HOST
+      - DB_PORT
+      - ENVIRONMENT
+
+  db:
+    image: mysql:8.0
+    container_name: "slimple-db"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_HOST: ${DB_HOST}
+    volumes:
+      - slimple_db_volume:/var/lib/mysql
+    ports:
+      - "${DB_PORT}:3306"
+volumes:
+  slimple_db_volume:

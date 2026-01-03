@@ -1,0 +1,60 @@
+<?php
+declare(strict_types=1);
+namespace App\Entity;
+class Transaction
+{
+    use \App\Traits\Identifiable;
+    private float $amount;
+    private string $description;
+    private \DateTime $date;
+
+    private User $user;
+    private Category $category;
+
+    public function setAmount(float $amount): void
+    {
+        $this->amount = $amount;
+    }
+
+    public function getAmount(): float
+    {
+        return $this->amount;
+    }
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function setDate(\DateTime $date): void
+    {
+        $this->date = $date;
+    }
+
+    public function getDate(): \DateTime
+    {
+        return $this->date;
+    }
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+    public function setCategory(Category $category): void
+    {
+        $this->category = $category;
+    }
+
+    public function getCategory(): Category
+    {
+        return $this->category;
+    }
+}

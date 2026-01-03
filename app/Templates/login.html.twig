@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %} {% block content %}
+{{ errors | json_encode }}
+<form method="POST">
+  <label for="email">email:</label>
+  <input id="email" name="email" type="text" value="{{ oldData.email }}" />
+  {{ errors.email | first }}
+  <br />
+  <label for="password">password:</label>
+  <input id="password" name="password" type="password" value="" />
+  {{ errors.password | first }}
+  <br />
+  <input id="submitbtn" type="submit" value="login" />
+</form>
+{% endblock %}
