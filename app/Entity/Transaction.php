@@ -10,6 +10,7 @@ class Transaction
 
     private User $user;
     private Category $category;
+    private Receipt $receipt;
 
     public function setAmount(float $amount): void
     {
@@ -56,5 +57,14 @@ class Transaction
     public function getCategory(): Category
     {
         return $this->category;
+    }
+    public function setReceipt(Receipt $receipt): void
+    {
+        $this->receipt = $receipt;
+    }
+
+    public function getReceipt(): Receipt
+    {
+        return $this->receipt;
     }
 }

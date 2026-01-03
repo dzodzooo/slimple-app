@@ -59,6 +59,7 @@ class UserController
         $user = $this->authService->login($userData);
 
         if (isset($user)) {
+            $this->session->set('user', $user);
             return $response
                 ->withStatus(StatusCodeInterface::STATUS_FOUND)
                 ->withHeader('Location', '/');

@@ -8,4 +8,40 @@
 
 <h1>Transactions</h1>
 
+<form metdod="POST">
+  <table>
+    <tr>
+      <td><label for="description">Description</label></td>
+      <td><input id="description" name="description" type="textarea" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="amount"/>Amount</label></td>
+      <td><input id="amount" name="amount" type="number" value="" min="100"/></td>
+    </tr>
+    <tr>
+      <td><label for="date"/>Date</label></td>
+      <td><input id="date" name="date" type="date" value="" /></td>
+    </tr>
+    <tr>
+      <td>
+        <input type="submit" value="add" />
+      </td>
+    </tr>
+  </table>
+</form>
+
+<table>
+  <tr>
+    <th>Description</th>
+    <th>Amount</th>
+    <th>Date</th>
+  </tr>
+  {% for transaction in transactions %}
+  <tr>
+    <td>{{ transaction.description }}</td>
+    <td>{{ transaction.amount }}</td>
+    <td>{{ transaction.date.format('d.m.Y. H:i:s')}}</td>
+  </tr> 
+  {% endfor %}
+</table>
 {% endblock %}

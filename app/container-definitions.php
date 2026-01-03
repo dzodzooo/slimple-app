@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\TransactionRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -8,6 +9,7 @@ use \App\Session;
 use \App\Services\AuthService;
 use \App\Contracts\AuthInterface;
 use \App\Contracts\SessionInterface;
+use App\Contracts\TransactionRepositoryInterface;
 use App\Contracts\UserRepositoryInterface;
 use App\Services\UserRepository;
 
@@ -47,5 +49,7 @@ return [
     },
     UserRepositoryInterface::class => function (EntityManager $entityManager) {
         return new UserRepository($entityManager);
-    }
+    },
+    TransactionRepositoryInterface::class => function (EntityManager $entityManager) {
+        return new TransactionRepository($entityManager); }
 ];

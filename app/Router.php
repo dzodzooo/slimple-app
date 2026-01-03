@@ -21,7 +21,11 @@ return function ($app) {
         $group->post('', [UserController::class, 'register']);
     });
 
-    $app->get('/transactions', [TransactionController::class, 'get']);
+    $app->group('/transactions', function (RouteCollectorProxy $group) {
+        $group->get('', [TransactionController::class, 'get']);
+        $group->post('', [TransactionController::class, 'post']);
+    });
+
 
     $app->get('/categories', [CategoryController::class, 'get']);
 };
