@@ -50,6 +50,7 @@ class UserControllerTest extends TestCase
         unset($this->userController);
         unset($this->response);
         unset($this->request);
+        unset($this->session);
     }
 
     public function testCanRegisterNewAccount()
