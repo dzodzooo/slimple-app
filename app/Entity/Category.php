@@ -2,12 +2,15 @@
 declare(strict_types=1);
 namespace App\Entity;
 
-class Category
+use App\Entity\Identifiable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
+class Category extends Identifiable
 {
-    use \App\Traits\Identifiable;
     private string $name;
     private User $user;
-    private array $transactions;
+    private Collection $transactions;
     public function setName(string $name): void
     {
         $this->name = $name;
@@ -18,6 +21,7 @@ class Category
     }
     public function setUser(User $user): void
     {
+        $user->addCategory($this);
         $this->user = $user;
     }
     public function getUser(): User
@@ -26,10 +30,11 @@ class Category
     }
     public function addTransaction(Transaction $transaction)
     {
-        array_push($this->transactions, $transaction);
+        $transaction->setCategory($this);
+        $this->transactions->add($transaction);
     }
     public function __construct()
     {
-        $this->transactions = [];
+        $this->transactions = new ArrayCollection();
     }
 }

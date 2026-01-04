@@ -4,11 +4,10 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use PDO;
+use App\Entity\Identifiable;
 
-class User
+class User extends Identifiable
 {
-    use \App\Traits\Identifiable;
     private string $name;
     private string $email;
     private string $password;
@@ -54,10 +53,4 @@ class User
         $this->categories = new ArrayCollection();
     }
 
-    public function updateTimestamps()
-    {
-        if (!isset($this->createdAt))
-            $this->createdAt = new \DateTime();
-        $this->updatedAt = new \DateTime();
-    }
 }

@@ -7,10 +7,9 @@
             <id name="id" type="integer">
                 <generator strategy="AUTO" />
             </id>
-            <field name="createdAt" column="created_at" type="datetime" />
-            <field name="updatedAt" column="updated_at" type="datetime" />
             <field name="name" type="string"/>
             <one-to-many field="transactions" target-entity="App\Entity\Transaction" mapped-by="category"/>
-            <many-to-one field="user" target-entity="App\Entity\User" />
+            <many-to-one field="user" target-entity="App\Entity\User">
+            </many-to-one>
       </entity>
 </doctrine-mapping>

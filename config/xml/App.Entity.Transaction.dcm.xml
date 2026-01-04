@@ -10,11 +10,15 @@
         <field name="amount" type="float"/>
         <field name="description" type="string" />
         <field name="date" type="datetime" />
-        <many-to-one field="category" target-entity="App\Entity\Category"/>
+        <many-to-one field="category" target-entity="App\Entity\Category">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-one>
         <many-to-one field="user" target-entity="App\Entity\User">
-        <cascade>
-            <cascade-persist/>
-        </cascade>
+            <cascade>
+                <cascade-persist/>
+            </cascade>
         </many-to-one>
         <one-to-one field="receipt" target-entity="App\Entity\Receipt" mapped-by="transaction" />
     </entity>

@@ -8,4 +8,29 @@
 
 <h1>Categories</h1>
 
+<form method="POST">
+  <table>
+    <tr>
+      <td><label for="name">Name</label></td>
+      <td><input id="name" name="name" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td>
+        <input type="submit" value="add" />
+      </td>
+    </tr>
+  </table>
+</form>
+
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+  {% for category in categories %}
+  <tr>
+    <td>{{ category.name }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
 {% endblock %}

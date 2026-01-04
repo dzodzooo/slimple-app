@@ -11,10 +11,9 @@
         <field name="email" type="string" />
         <field name="password" type="string" />
         <one-to-many field="transactions" target-entity="App\Entity\Transaction" mapped-by="user">
-            <cascade>
-                <cascade-persist />
-            </cascade>
         </one-to-many>
     
+        <one-to-many field="categories" target-entity="App\Entity\Category" mapped-by="user" >
+        </one-to-many>
     </entity>
 </doctrine-mapping>

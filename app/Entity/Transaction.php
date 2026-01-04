@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
 namespace App\Entity;
-class Transaction
+
+use App\Entity\Identifiable;
+class Transaction extends Identifiable
 {
-    use \App\Traits\Identifiable;
     private float $amount;
     private string $description;
     private \DateTime $date;
@@ -42,6 +43,7 @@ class Transaction
     }
     public function setUser(User $user): void
     {
+        $user->addTransaction($this);
         $this->user = $user;
     }
 
@@ -51,6 +53,7 @@ class Transaction
     }
     public function setCategory(Category $category): void
     {
+        $category->addTransaction($this);
         $this->category = $category;
     }
 

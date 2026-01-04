@@ -3,10 +3,10 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\Transaction;
+use App\Entity\Identifiable;
 
-class Receipt
+class Receipt extends Identifiable
 {
-    use \App\Traits\Identifiable;
     private string $filename;
     private Transaction $transaction;
     public function setFilename(string $filename): void
@@ -19,6 +19,7 @@ class Receipt
     }
     public function setTransaction(Transaction $transaction): void
     {
+        $transaction->setReceipt($this);
         $this->transaction = $transaction;
     }
     public function getTransaction(): Transaction

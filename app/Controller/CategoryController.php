@@ -2,17 +2,28 @@
 declare(strict_types=1);
 namespace App\Controller;
 
+use App\Contracts\CategoryRepositoryInterface;
+use Fig\Http\Message\StatusCodeInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class CategoryController
 {
-    public function __construct(private readonly \Twig\Environment $twig)
-    {
+    public function __construct(
+        private readonly \Twig\Environment $twig,
+        private readonly CategoryRepositoryInterface $categoryRepository
+    ) {
     }
     public function get(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        $response->getBody()->write($this->twig->render('categories.html.twig', []));
+        $categories = $this->categoryRepository->getAllCategories();
+        $response->getBody()->write($this->twig->render('categories.html.twig', ['categories' => $categories]));
         return $response;
+    }
+    public function post(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    {
+        $categoryData = $request->getParsedBody();
+        $this->categoryRepository->addNewCategory($categoryData);
+        return $response->withHeader('Location', '/categories')->withStatus(StatusCodeInterface::STATUS_FOUND);
     }
 }

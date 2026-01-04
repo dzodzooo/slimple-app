@@ -27,5 +27,8 @@ return function ($app) {
     });
 
 
-    $app->get('/categories', [CategoryController::class, 'get']);
+    $app->group('/categories', function (RouteCollectorProxy $group) {
+        $group->get('', [CategoryController::class, 'get']);
+        $group->post('', [CategoryController::class, 'post']);
+    });
 };

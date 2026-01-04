@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
-namespace App\Traits;
-trait Identifiable
+namespace App\Entity;
+class Identifiable
 {
     protected int $id;
     protected \DateTime $createdAt;
@@ -27,5 +27,11 @@ trait Identifiable
     public function getUpdatedAt(): \DateTime
     {
         return $this->updatedAt;
+    }
+    public function updateTimestamps()
+    {
+        if (!isset($this->createdAt))
+            $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 }

@@ -3,19 +3,20 @@
 use App\Services\TransactionRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\DriverManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMSetup;
 use \App\Session;
 use \App\Services\AuthService;
 use \App\Contracts\AuthInterface;
+use App\Contracts\CategoryRepositoryInterface;
 use \App\Contracts\SessionInterface;
 use App\Contracts\TransactionRepositoryInterface;
 use App\Contracts\UserRepositoryInterface;
+use App\Services\CategoryRepository;
 use App\Services\UserRepository;
 
 return [
-    EntityManagerInterface::class => function () { },
     EntityManager::class => function () {
+
         $connectionParams = [
             'driver' => isset($_ENV['DB_DRIVER']) ? $_ENV['DB_DRIVER'] : 'pdo_mysql',
             'user' => $_ENV['DB_USER'],
@@ -41,15 +42,10 @@ return [
         ]);
         return $twig;
     },
-    SessionInterface::class => function () {
-        return new Session();
-    },
-    AuthInterface::class => function (UserRepositoryInterface $userRepository) {
-        return new AuthService($userRepository);
-    },
-    UserRepositoryInterface::class => function (EntityManager $entityManager) {
-        return new UserRepository($entityManager);
-    },
-    TransactionRepositoryInterface::class => function (EntityManager $entityManager) {
-        return new TransactionRepository($entityManager); }
+    SessionInterface::class => fn() => new Session(),
+    AuthInterface::class => fn(UserRepositoryInterface $userRepository) => new AuthService($userRepository),
+    UserRepositoryInterface::class => fn(EntityManager $entityManager) => new UserRepository($entityManager),
+    TransactionRepositoryInterface::class => fn(EntityManager $entityManager) => new TransactionRepository($entityManager),
+    CategoryRepositoryInterface::class => fn(EntityManager $entityManager) => new CategoryRepository($entityManager),
+
 ];
