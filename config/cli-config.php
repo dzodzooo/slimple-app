@@ -1,4 +1,5 @@
 <?php
+namespace Config;
 require_once __DIR__ . '/../vendor/autoload.php';
 use Doctrine\DBAL\DriverManager;
 use Doctrine\Migrations\Configuration\EntityManager\ExistingEntityManager;
@@ -21,7 +22,7 @@ $ORMconfig = ORMSetup::createXMLMetadataConfig([
     __DIR__ . '/xml'
 ]);
 $ORMconfig->setProxyDir(__DIR__ . '/Proxies');
-$ORMconfig->setProxyNamespace('Proxies');
+$ORMconfig->setProxyNamespace('\Config\Proxies');
 $entityManager = new EntityManager($connection, $ORMconfig);
 
 $config = new PhpFile(__DIR__ . '/migrations.php');

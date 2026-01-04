@@ -1,18 +1,18 @@
 <?php
 
-use App\Services\TransactionRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\ORMSetup;
 use \App\Session;
-use \App\Services\AuthService;
 use \App\Contracts\AuthInterface;
-use App\Contracts\CategoryRepositoryInterface;
+use \App\Contracts\CategoryRepositoryInterface;
 use \App\Contracts\SessionInterface;
-use App\Contracts\TransactionRepositoryInterface;
-use App\Contracts\UserRepositoryInterface;
-use App\Services\CategoryRepository;
-use App\Services\UserRepository;
+use \App\Contracts\TransactionRepositoryInterface;
+use \App\Contracts\UserRepositoryInterface;
+use \App\Services\AuthService;
+use \App\Repository\CategoryRepository;
+use \App\Repository\UserRepository;
+use \App\Repository\TransactionRepository;
 
 return [
     EntityManager::class => function () {

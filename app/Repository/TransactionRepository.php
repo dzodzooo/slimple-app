@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
-namespace App\Services;
+namespace App\Repository;
 
 use App\Contracts\TransactionRepositoryInterface;
+use App\Entity\Category;
 use App\Entity\Transaction;
 use App\Entity\User;
 use DateTime;
@@ -30,11 +31,14 @@ class TransactionRepository implements TransactionRepositoryInterface
     {
         $userRepository = $this->entityManager->getRepository(User::class);
         $user = $userRepository->find($_SESSION['user']->getId());
+        $categoryRepository = $this->entityManager->getRepository(Category::class);
+        $category = $categoryRepository->find($transactionData['category']);
         $transaction = new Transaction();
         $transaction->setAmount((float) $transactionData['amount']);
         $transaction->setDescription($transactionData['description']);
         $transaction->setDate(new DateTime($transactionData['date']));
         $transaction->setUser($user);
+        $transaction->setCategory($category);
         $this->entityManager->persist($transaction);
         $this->entityManager->flush();
     }

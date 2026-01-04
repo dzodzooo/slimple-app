@@ -17,7 +17,8 @@ class CategoryController
     public function get(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $categories = $this->categoryRepository->getAllCategories();
-        $response->getBody()->write($this->twig->render('categories.html.twig', ['categories' => $categories]));
+        $this->twig->addGlobal('categories', $categories);
+        $response->getBody()->write($this->twig->render('categories.html.twig', []));
         return $response;
     }
     public function post(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface

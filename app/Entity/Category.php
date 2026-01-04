@@ -30,7 +30,6 @@ class Category extends Identifiable
     }
     public function addTransaction(Transaction $transaction)
     {
-        $transaction->setCategory($this);
         $this->transactions->add($transaction);
     }
     public function __construct()
