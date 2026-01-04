@@ -1,37 +1,22 @@
-{% extends 'base.html.twig' %} {% block content %}
+{% extends 'base.html.twig' %} {% use "navbar.html.twig" %} {% use
+"addcategory.html.twig" %}{% block content %} {% set active = "categories" %}
+{{ block("navbar") }}
 
-<nav>
-  <a href="/"> home </a>
-  <a href="/transactions"> transactions </a>
-  <a href="/categories"> categories </a>
-</nav>
+{{ block("addcategory") }}
 
-<h1>Categories</h1>
-
-<form method="POST">
-  <table>
-    <tr>
-      <td><label for="name">Name</label></td>
-      <td><input id="name" name="name" type="text" value="" /></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td>
-        <input type="submit" value="add" />
-      </td>
-    </tr>
-  </table>
-</form>
 <br />
-<table>
-  <tr>
-    <th>Name</th>
-  </tr>
-  {% for category in categories %}
-  <tr>
-    <td>{{ category.name }}</td>
-  </tr>
-  {% endfor %}
+
+<table class="datatable">
+  <tbody>
+    <tr>
+      <th>Name</th>
+    </tr>
+    {% for category in categories %}
+    <tr>
+      <td>{{ category.name }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
 </table>
 
 {% endblock %}

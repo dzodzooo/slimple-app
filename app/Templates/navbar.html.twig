@@ -1,0 +1,8 @@
+{% block navbar %}
+<nav>
+  <a href="/" class="{{active == "home" ? "active" : ""}}"> Home </a>
+  <a href="/transactions" class="{{active == "transactions" ? "active" : ""}}"> Transactions </a>
+  <a href="/categories" class="{{active == "categories" ? "active" : ""}}"> Categories </a>
+  <a href="/logout" class="{{active == "logout" ? "active" : ""}}"> Log out </a>
+</nav>
+{% endblock navbar %}

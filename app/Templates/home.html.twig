@@ -1,8 +1,5 @@
-{% extends 'base.html.twig' %} {% block content %}
-<nav>
-  <a href="/"> home </a>
-  <a href="/transactions"> transactions </a>
-  <a href="/categories"> categories </a>
-</nav>
-<h1>Home</h1>
+{% extends 'base.html.twig' %} {% use "navbar.html.twig" %} {% block content %}
+{% set active = "home" %}
+{{ block("navbar") }}
+<h3>Hello {{ username }}</h3>
 {% endblock %}

@@ -1,0 +1,76 @@
+body {
+  color: #000000;
+  margin: 0;
+  padding: 0;
+}
+nav {
+  display: flex;
+  background-color: #00a676;
+  justify-content: space-around;
+  position: sticky;
+  padding: 0;
+}
+
+nav > a {
+  color: #f7f9f9;
+  padding: 1rem;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  font-size: larger;
+}
+nav > a:hover {
+  border-radius: 0 1rem 0 0;
+  background-color: #f7f9f9;
+  color: #00a676;
+}
+.active {
+  border-radius: 0 1rem 0 0;
+  background-color: #f7f9f9;
+  color: #00a676;
+  font-weight: bold;
+}
+.datatable {
+  width: 100%;
+  padding: 3rem;
+}
+.datatable > tbody {
+  width: 100%;
+}
+.datatable > tbody > tr > th {
+  padding: 1 rem;
+  background-color: #a76d60;
+  color: #f7f9f9;
+  height: 3rem;
+  font-size: large;
+  font-weight: 600;
+}
+
+.datatable > tbody > tr > td {
+  background-color: #e0d0c1;
+  color: #000000;
+  text-align: center;
+  height: 2rem;
+  font-size: medium;
+}
+
+.btnSubmit {
+  background-color: #a76d60;
+  color: #f7f9f9;
+  border-style: none;
+  cursor: pointer;
+  width: 100%;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  border-radius: 1rem;
+  font-weight: 600;
+}
+
+.btnSubmit:hover {
+  background-color: #e0d0c1;
+  color: #a76d60;
+  font-weight: 600;
+}
+
+.form {
+  padding: 2rem;
+}

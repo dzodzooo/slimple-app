@@ -1,60 +1,28 @@
-{% extends 'base.html.twig' %} {% block content %}
+{% extends 'base.html.twig' %} {% use "navbar.html.twig" %} {% use
+"addtransaction.html.twig" %}{% block content %} {% set active = "transactions"
+%}
+{{ block("navbar") }}
 
-<nav>
-  <a href="/"> home </a>
-  <a href="/transactions"> transactions </a>
-  <a href="/categories"> categories </a>
-</nav>
+{{ block("addtransaction") }}
 
-<h1>Transactions</h1>
+<br />
 
-<form method="POST">
-  <table>
+<table class="datatable">
+  <tbody>
     <tr>
-      <td><label for="description">Description</label></td>
-      <td><input id="description" name="description" type="text" value="" /></td>
+      <th>Description</th>
+      <th>Amount</th>
+      <th>Date</th>
+      <th>Category</th>
     </tr>
+    {% for transaction in transactions %}
     <tr>
-      <td><label for="amount"/>Amount</label></td>
-      <td><input id="amount" name="amount" type="number" value="" min="100"/></td>
+      <td>{{ transaction.description }}</td>
+      <td>{{ transaction.amount }}$</td>
+      <td>{{ transaction.date.format("d.m.Y.") }}</td>
+      <td>{{ transaction.category.getName() }}</td>
     </tr>
-    <tr>
-      <td><label for="date"/>Date</label></td>
-      <td><input id="date" name="date" type="date" value="" /></td>
-    </tr>
-    <tr>
-      <td><label for="category">Category</label></td>
-      <td>
-        <select name="category" id="category">
-        {% for category in categories %}
-          <option value="{{category.id}}">{{category.name}}</option>    
-        {% endfor %}
-        </select>
-    </td>
-    </tr>
-    <tr>
-      <td></td>
-      <td>
-        <input type="submit" value="add" />
-      </td>
-    </tr>
-  </table>
-</form>
-<br>
-<table>
-  <tr>
-    <th>Description</th>
-    <th>Amount</th>
-    <th>Date</th>
-    <th>Category</th>
-  </tr>
-  {% for transaction in transactions %}
-  <tr>
-    <td>{{ transaction.description }}</td>
-    <td>{{ transaction.amount }}</td>
-    <td>{{ transaction.date.format('d.m.Y. H:i:s')}}</td>
-    <td>{{ transaction.category.getName() }}</td>
-  </tr> 
-  {% endfor %}
+    {% endfor %}
+  </tbody>
 </table>
 {% endblock %}
