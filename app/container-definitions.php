@@ -40,6 +40,7 @@ return [
             'cache' => $_ENV['ENVIRONMENT'] === 'DEV' ? false : __DIR__ . '/Templates/cache',
             'auto_reload' => $_ENV['ENVIRONMENT'] === 'DEV'
         ]);
+
         return $twig;
     },
     SessionInterface::class => fn() => new Session(),

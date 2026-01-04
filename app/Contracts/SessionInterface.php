@@ -6,5 +6,5 @@ interface SessionInterface
     public function set(string $name, mixed $value): bool;
     public function write_and_end();
     public function get(string $name);
-    public function count(): int;
+    public function reset();
 }

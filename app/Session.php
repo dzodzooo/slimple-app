@@ -4,11 +4,6 @@ namespace App;
 use App\Contracts\SessionInterface;
 class Session implements SessionInterface
 {
-    public int $counter;
-    public function __construct()
-    {
-        $this->counter = 0;
-    }
     public function start()
     {
         session_start();
@@ -16,7 +11,6 @@ class Session implements SessionInterface
 
     public function set(string $name, mixed $value): bool
     {
-        $this->counter++;
         if (isset($_SESSION)) {
             $_SESSION[$name] = $value;
             return true;
@@ -35,8 +29,10 @@ class Session implements SessionInterface
         }
         return null;
     }
-    public function count(): int
+
+    public function reset()
     {
-        return $this->counter;
+        session_unset();
+        session_destroy();
     }
 }

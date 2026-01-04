@@ -11,6 +11,8 @@ use App\Controller\UserController;
 return function ($app) {
     $app->get('/', [HomeController::class, 'home']);
 
+    $app->get('/logout', [UserController::class, 'logout']);
+
     $app->group('/login', function (RouteCollectorProxy $group) {
         $group->get('', [UserController::class, 'getLoginPage']);
         $group->post('', [UserController::class, 'login']);

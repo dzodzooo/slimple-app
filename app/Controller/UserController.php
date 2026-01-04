@@ -67,4 +67,9 @@ class UserController
         $oldData = ['email' => $userData['email']];
         throw new ValidationException(['email' => ['Invalid credentials.']], $oldData);
     }
+    public function logout(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    {
+        $this->session->reset();
+        return $response->withStatus(StatusCodeInterface::STATUS_FOUND)->withHeader('Location', '/login');
+    }
 }

@@ -3,8 +3,8 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Contracts\CategoryRepositoryInterface;
-use App\Entity\Category;
-use App\Entity\User;
+use \App\Entity\Category;
+use \App\Entity\User;
 use Doctrine\ORM\EntityManager;
 
 class CategoryRepository implements CategoryRepositoryInterface
