@@ -16,7 +16,7 @@ class CategoryController
     }
     public function get(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        $categories = $this->categoryRepository->getAllCategories();
+        $categories = $this->categoryRepository->getAll();
         $this->twig->addGlobal('categories', $categories);
         $response->getBody()->write($this->twig->render('categories.html.twig', []));
         return $response;
@@ -24,7 +24,19 @@ class CategoryController
     public function post(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $categoryData = $request->getParsedBody();
-        $this->categoryRepository->addNewCategory($categoryData);
+        $this->categoryRepository->create($categoryData);
+        return $response->withHeader('Location', '/categories')->withStatus(StatusCodeInterface::STATUS_FOUND);
+    }
+    public function update(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    {
+        $categoryData = $request->getParsedBody();
+        $this->categoryRepository->update($categoryData);
+        return $response->withHeader('Location', '/categories')->withStatus(StatusCodeInterface::STATUS_FOUND);
+    }
+    public function delete(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    {
+        $categoryData = $request->getParsedBody();
+        $this->categoryRepository->delete($categoryData);
         return $response->withHeader('Location', '/categories')->withStatus(StatusCodeInterface::STATUS_FOUND);
     }
 }

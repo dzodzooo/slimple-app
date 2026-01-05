@@ -5,6 +5,8 @@ namespace App\Contracts;
 
 interface CategoryRepositoryInterface
 {
-    public function addNewCategory(array $categoryData);
-    public function getAllCategories();
+    public function create(array $categoryData);
+    public function getAll();
+    public function update(array $categoryData);
+    public function delete(array $categoryData);
 }

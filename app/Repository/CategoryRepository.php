@@ -16,13 +16,13 @@ class CategoryRepository implements CategoryRepositoryInterface
         private readonly SessionInterface $session
     ) {
     }
-    public function addNewCategory(array $categoryData)
+    public function create(array $categoryData)
     {
         $user = $this->entityManager->getReference(User::class, $this->session->get('user')->id);
         $this->entityManager->persist(CategoryFactory::create($categoryData, $user));
         $this->entityManager->flush();
     }
-    public function getAllCategories()
+    public function getAll()
     {
         $repository = $this->entityManager->getRepository(Category::class);
         if (!$this->session->hasStarted() or !$this->session->get('user'))
@@ -30,5 +30,19 @@ class CategoryRepository implements CategoryRepositoryInterface
         $user = $this->entityManager->getReference(User::class, $this->session->get('user')->id);
         $categories = $repository->findBy(['user' => $user]);
         return $categories;
+    }
+    public function update(array $categoryData)
+    {
+        $category = $this->entityManager->getReference(Category::class, $categoryData['id']);
+        $category->setName($categoryData['name']);
+        $this->entityManager->persist($category);
+        $this->entityManager->flush();
+    }
+
+    public function delete(array $categoryData)
+    {
+        $category = $this->entityManager->getReference(Category::class, $categoryData['id']);
+        $this->entityManager->remove($category);
+        $this->entityManager->flush();
     }
 }
