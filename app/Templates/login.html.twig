@@ -1,13 +1,63 @@
 {% extends 'base.html.twig' %} {% block content %}
 <form method="POST">
-  <label for="email">email:</label>
-  <input id="email" name="email" type="text" value="{{ oldData.email }}" />
-  {{ errors.email | first }}
-  <br />
-  <label for="password">password:</label>
-  <input id="password" name="password" type="password" value="" />
-  {{ errors.password | first }}
-  <br />
-  <input id="submitbtn" type="submit" value="login" />
+  <table class="form">
+    <tbody>
+      <tr>
+        <td>
+          <input
+            id="email"
+            name="email"
+            type="text"
+            value="{{ oldData.email }}"
+            required
+            class="{{ errors.email ? 'error-border' : '' }}"
+            placeholder="Email"
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            value=""
+            class="{{ errors.password ? 'error-border' : '' }}"
+            required
+            placeholder="Password"
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <div>
+            <a href="/register">Don't have an account?</a>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <input
+            id="submitbtn"
+            type="submit"
+            value="Log in"
+            class="btnSubmit"
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td>
+          <span class="error">
+            {{ errors.email | first }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </form>
 {% endblock %}

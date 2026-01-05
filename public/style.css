@@ -54,8 +54,8 @@ nav > a:hover {
   font-size: medium;
 }
 
-.btnSubmit {
-  background-color: #a76d60;
+.datapost > tbody > tr > td > .btnSubmit {
+  background-color: #cc2936;
   color: #f7f9f9;
   border-style: none;
   cursor: pointer;
@@ -65,12 +65,69 @@ nav > a:hover {
   font-weight: 600;
 }
 
-.btnSubmit:hover {
+.datapost > tbody > tr > td > input,
+select {
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.datapost > tbody > tr > td > .btnSubmit:hover {
   background-color: #e0d0c1;
   color: #a76d60;
   font-weight: 600;
+  padding: 0.5rem;
+}
+
+label {
+  margin: 1rem;
 }
 
 .form {
-  padding: 2rem;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #00a676;
+  height: 100vh;
+}
+
+.error {
+  color: #c60f7b;
+}
+
+.error-border {
+  border-color: #cc2936;
+}
+
+.form > tbody > tr > td > input {
+  padding: 0.5rem;
+}
+
+.form tbody > tr > td > .btnSubmit {
+  background-color: #cc2936;
+  color: #f7f9f9;
+  border-style: none;
+  cursor: pointer;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  font-weight: 600;
+}
+.form > tbody > tr > td > .btnSubmit:hover {
+  background-color: #e0d0c1;
+  color: #a76d60;
+  font-weight: 600;
+  padding: 0.5rem;
+}
+
+.form > tbody > tr > td > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.form > tbody > tr > td > div > a {
+  width: 100%;
+  text-align: center;
 }

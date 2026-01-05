@@ -19,6 +19,9 @@ class TransactionController
     }
     public function get(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
+        if (!isset($_SESSION) or !isset($_SESSION['user'])) {
+            return $response->withStatus(StatusCodeInterface::STATUS_FOUND)->withHeader('Location', '/login');
+        }
         $transactions = $this->transactionRepository->getAllTransactions();
         $categories = $this->categoryRepository->getAllCategories();
         $this->twig->addGlobal('transactions', $transactions);

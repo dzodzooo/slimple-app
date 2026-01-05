@@ -25,6 +25,10 @@ class UserController
     }
     public function getRegisterPage(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
+        if (isset($_SESSION) and isset($_SESSION['user'])) {
+            return $response->withStatus(StatusCodeInterface::STATUS_FOUND)->withHeader('Location', '/');
+        }
+
         $response->getBody()->write($this->twig->render('register.html.twig', ['errors' => $this->session->get('errors'), 'oldData' => $this->session->get('oldData')]));
         return $response;
     }
@@ -47,6 +51,10 @@ class UserController
 
     public function getLoginPage(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
+        if (isset($_SESSION) and isset($_SESSION['user'])) {
+            return $response->withStatus(StatusCodeInterface::STATUS_FOUND)->withHeader('Location', '/');
+        }
+
         $response->getBody()->write($this->twig->render('login.html.twig', ['errors' => $this->session->get('errors'), 'oldData' => $this->session->get('oldData')]));
         return $response;
     }

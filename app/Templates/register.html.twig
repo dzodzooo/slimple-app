@@ -1,25 +1,114 @@
 {% extends 'base.html.twig' %} {% block content %}
 <form method="POST">
-  <label for="name">name:</label>
-  <input id="name" name="name" type="text" value="{{ oldData.name }}" />
-  {{ errors.name | first }}
+  <table class="form">
+    <tbody>
+      <tr>
+        <td>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="Name"
+            value="{{ oldData.name }}"
+            required
+            class="{{ errors.name ? 'error-border' : '' }}"
+          />
+        </td>
+      </tr>
 
-  <br />
-  <label for="email">email:</label>
-  <input id="email" name="email" type="email" value="{{ oldData.email }}" />
-  {{ errors.email | first }}
+      <tr>
+        <td>
+          <span class="error">
+            {{ errors.name | first }}
+          </span>
+        </td>
+      </tr>
 
-  <br />
-  <label for="password">password:</label>
-  <input id="password" name="password" type="password" value="" />
-  {{ errors.password | first }}
+      <tr>
+        <td>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Email"
+            value="{{ oldData.email }}"
+            required
+            class="{{ errors.name ? 'error-border' : '' }}"
+          />
+        </td>
+      </tr>
 
-  <br />
-  <label for="confirmpassword">confirm password:</label>
-  <input id="confirmpassword" name="confirmPassword" type="password" value="" />
-  {{ errors.confirmPassword | first }}
+      <tr>
+        <td>
+          <span class="error">
+            {{ errors.email | first }}
+          </span>
+        </td>
+      </tr>
 
-  <br />
-  <input id="submitbtn" type="submit" value="register" />
+      <tr>
+        <td>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Password"
+            value=""
+            required
+            class="{{ errors.password ? 'error-border' : '' }}"
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <span class="error">
+            {{ errors.password | first }}
+          </span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <input
+            id="confirmpassword"
+            placeholder="Confirm Password"
+            name="confirmPassword"
+            type="password"
+            value=""
+            required
+            class="{{ errors.confirmPassword ? 'error-border' : '' }}"
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <span class="error">
+            {{ errors.confirmPassword | first }}
+          </span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <div>
+            <a href="/login">Already have an account?</a>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <input
+            id="submitbtn"
+            type="submit"
+            value="Register"
+            class="btnSubmit"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </form>
 {% endblock %}
