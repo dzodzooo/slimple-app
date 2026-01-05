@@ -16,9 +16,6 @@ class CategoryController
     }
     public function get(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        if (!isset($_SESSION) or !isset($_SESSION['user'])) {
-            return $response->withStatus(StatusCodeInterface::STATUS_FOUND)->withHeader('Location', '/login');
-        }
         $categories = $this->categoryRepository->getAllCategories();
         $this->twig->addGlobal('categories', $categories);
         $response->getBody()->write($this->twig->render('categories.html.twig', []));

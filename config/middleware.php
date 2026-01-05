@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace Config;
 
+use App\Middleware\GuestMiddleware;
 use App\Middleware\SessionMiddleware;
 use App\Middleware\ValidationExceptionMiddleware;
 use Slim\App;

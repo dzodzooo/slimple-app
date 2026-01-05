@@ -7,30 +7,37 @@ use App\Controller\CategoryController;
 use App\Controller\HomeController;
 use App\Controller\TransactionController;
 use App\Controller\UserController;
+use App\Middleware\AuthMiddleware;
+use App\Middleware\GuestMiddleware;
 
 return function ($app) {
-    $app->get('/', [HomeController::class, 'home']);
 
-    $app->get('/logout', [UserController::class, 'logout']);
+    $app->group('/', function (RouteCollectorProxy $auth) {
+
+        $auth->get('', [HomeController::class, 'home']);
+
+        $auth->get('logout', [UserController::class, 'logout']);
+
+        $auth->group('transactions', function (RouteCollectorProxy $group) {
+            $group->get('', [TransactionController::class, 'get']);
+            $group->post('', [TransactionController::class, 'post']);
+        });
+
+        $auth->group('categories', function (RouteCollectorProxy $group) {
+            $group->get('', [CategoryController::class, 'get']);
+            $group->post('', [CategoryController::class, 'post']);
+        });
+    })->add(AuthMiddleware::class);
+
 
     $app->group('/login', function (RouteCollectorProxy $group) {
         $group->get('', [UserController::class, 'getLoginPage']);
         $group->post('', [UserController::class, 'login']);
-    });
+    })->add(GuestMiddleware::class);
 
     $app->group('/register', function (RouteCollectorProxy $group) {
         $group->get('', [UserController::class, 'getRegisterPage']);
         $group->post('', [UserController::class, 'register']);
-    });
+    })->add(GuestMiddleware::class);
 
-    $app->group('/transactions', function (RouteCollectorProxy $group) {
-        $group->get('', [TransactionController::class, 'get']);
-        $group->post('', [TransactionController::class, 'post']);
-    });
-
-
-    $app->group('/categories', function (RouteCollectorProxy $group) {
-        $group->get('', [CategoryController::class, 'get']);
-        $group->post('', [CategoryController::class, 'post']);
-    });
 };
