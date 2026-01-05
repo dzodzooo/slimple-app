@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Services;
 
 use App\Contracts\UserRepositoryInterface;
+use App\DataObject\UserDTO;
 use App\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -27,20 +28,23 @@ class UserRepoMockup implements UserRepositoryInterface
         return $this->users;
     }
 
-    public function getByEmail(string $email): User|null
+    public function getByEmail(string $email): UserDTO|null
     {
         $user = $this->users
             ->filter(static fn(User $user) => $user->getEmail() === $email)
             ->first();
-        return $user === false ? null : $user;
+        if (!$user)
+            return null;
+        return new UserDTO(-1, $user->getName(), $user->getEmail(), $user->getPassword());
     }
 
-    public function create(array $userData): void
+    public function create(array $userData): UserDTO|null
     {
         $user = new User();
         $user->setEmail($userData['email']);
         $user->setPassword(password_hash($userData['password'], PASSWORD_BCRYPT));
         $user->setName($userData['name']);
         $this->users->add($user);
+        return new UserDTO(-1, $user->getName(), $user->getEmail(), $user->getPassword());
     }
 }

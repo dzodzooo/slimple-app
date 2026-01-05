@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Contracts\UserRepositoryInterface;
+use App\DataObject\UserDTO;
 use App\Entity\User;
 use Doctrine\ORM\EntityManager;
 
@@ -11,21 +12,16 @@ class UserRepository implements UserRepositoryInterface
     public function __construct(private readonly EntityManager $entityManager)
     {
     }
-
-    public function getAll()
-    {
-
-    }
-    public function getByEmail(string $email): User|null
+    public function getByEmail(string $email): UserDTO|null
     {
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
         if (isset($user)) {
-            return $user;
+            return new UserDTO($user->getId(), $user->getName(), $user->getEmail(), $user->getPassword());
         }
         return null;
     }
 
-    public function create(array $userData): User|null
+    public function create(array $userData): UserDTO|null
     {
         $user = new User();
 
@@ -40,6 +36,6 @@ class UserRepository implements UserRepositoryInterface
 
         $this->entityManager->flush();
 
-        return $user;
+        return new UserDTO($user->getId(), $user->getName(), $user->getEmail(), $user->getPassword());
     }
 }

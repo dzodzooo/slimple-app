@@ -21,11 +21,10 @@ class UserController
         private readonly RegistrationValidator $registrationValidator,
         private readonly LoginValidator $loginValidator
     ) {
-
     }
+
     public function getRegisterPage(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-
         $response->getBody()->write($this->twig->render('register.html.twig', ['errors' => $this->session->get('errors'), 'oldData' => $this->session->get('oldData')]));
         return $response;
     }
@@ -68,7 +67,9 @@ class UserController
         $user = $this->authService->login($userData);
 
         if (isset($user)) {
+
             $this->session->set('user', $user);
+
             return $response
                 ->withStatus(StatusCodeInterface::STATUS_FOUND)
                 ->withHeader('Location', '/');

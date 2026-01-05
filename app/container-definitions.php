@@ -46,7 +46,7 @@ return [
     SessionInterface::class => fn() => new Session(),
     AuthInterface::class => fn(UserRepositoryInterface $userRepository) => new AuthService($userRepository),
     UserRepositoryInterface::class => fn(EntityManager $entityManager) => new UserRepository($entityManager),
-    TransactionRepositoryInterface::class => fn(EntityManager $entityManager) => new TransactionRepository($entityManager),
-    CategoryRepositoryInterface::class => fn(EntityManager $entityManager) => new CategoryRepository($entityManager),
+    TransactionRepositoryInterface::class => fn(EntityManager $entityManager, SessionInterface $session) => new TransactionRepository($entityManager, $session),
+    CategoryRepositoryInterface::class => fn(EntityManager $entityManager, SessionInterface $session) => new CategoryRepository($entityManager, $session),
 
 ];

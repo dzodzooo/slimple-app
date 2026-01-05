@@ -17,7 +17,7 @@ class Session implements SessionInterface
         }
         return false;
     }
-    public function write_and_end()
+    public function saveAndClose()
     {
         session_write_close();
     }
@@ -34,5 +34,10 @@ class Session implements SessionInterface
     {
         session_unset();
         session_destroy();
+    }
+
+    public function hasStarted(): bool
+    {
+        return session_status() === PHP_SESSION_ACTIVE;
     }
 }

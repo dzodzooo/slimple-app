@@ -24,12 +24,11 @@ class AuthService implements AuthInterface
     public function login(array $userData)
     {
         $user = $this->userRepository->getByEmail($userData['email']);
-        if (!isset($user))
-            return null;
 
-        if (password_verify($userData['password'], $user->getPassword())) {
+        if (isset($user) and password_verify($userData['password'], $user->password)) {
             return $user;
         }
+
         return null;
     }
 }

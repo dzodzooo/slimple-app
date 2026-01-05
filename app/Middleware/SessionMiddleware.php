@@ -17,7 +17,7 @@ class SessionMiddleware implements MiddlewareInterface
     {
         $this->session->start();
         $response = $handler->handle($request);
-        $this->session->write_and_end();
+        $this->session->saveAndClose();
         return $response;
     }
 }

@@ -4,7 +4,8 @@ interface SessionInterface
 {
     public function start();
     public function set(string $name, mixed $value): bool;
-    public function write_and_end();
+    public function saveAndClose();
     public function get(string $name);
     public function reset();
+    public function hasStarted(): bool;
 }
