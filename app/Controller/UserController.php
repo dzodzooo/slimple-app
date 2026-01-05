@@ -42,7 +42,15 @@ class UserController
             $oldData = array_diff_key($userData, ['password' => '', 'confirmPassword' => '']);
             throw new ValidationException(['email' => ['email taken.']], $oldData);
         }
-        $this->authService->register($userData);
+
+        $user = $this->authService->register($userData);
+
+        if (isset($user)) {
+            $this->session->set('user', $user);
+            return $response
+                ->withStatus(StatusCodeInterface::STATUS_FOUND)
+                ->withHeader('Location', '/');
+        }
 
         return $response
             ->withStatus(StatusCodeInterface::STATUS_FOUND)

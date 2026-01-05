@@ -8,5 +8,5 @@ interface UserRepositoryInterface
 {
     public function getAll();
     public function getByEmail(string $email): User|null;
-    public function create(array $userData): void;
+    public function create(array $userData): User|null;
 }

@@ -13,7 +13,7 @@ class AuthService implements AuthInterface
     }
     public function register(array $userData)
     {
-        $this->userRepository->create($userData);
+        return $this->userRepository->create($userData);
     }
 
     public function userExists(array $userData): User|null

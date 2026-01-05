@@ -25,7 +25,7 @@ class UserRepository implements UserRepositoryInterface
         return null;
     }
 
-    public function create(array $userData): void
+    public function create(array $userData): User|null
     {
         $user = new User();
 
@@ -39,5 +39,7 @@ class UserRepository implements UserRepositoryInterface
         $this->entityManager->persist($user);
 
         $this->entityManager->flush();
+
+        return $user;
     }
 }
