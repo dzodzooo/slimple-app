@@ -47,4 +47,12 @@ class UserRepoMockup implements UserRepositoryInterface
         $this->users->add($user);
         return new UserDTO(-1, $user->getName(), $user->getEmail(), $user->getPassword());
     }
+
+    public function login(array $userData): UserDTO|null
+    {
+        $userDTO = $this->getByEmail($userData['email']);
+        if ($userDTO->password === $userData['password'])
+            return $userDTO;
+        return null;
+    }
 }

@@ -38,4 +38,14 @@ class UserRepository implements UserRepositoryInterface
 
         return new UserDTO($user->getId(), $user->getName(), $user->getEmail(), $user->getPassword());
     }
+    public function login(array $userData): UserDTO|null
+    {
+        $userDTO = $this->getByEmail($userData['email']);
+
+        if (isset($userDTO) and password_verify($userData['password'], $userDTO->password)) {
+            return $userDTO;
+        }
+
+        return null;
+    }
 }

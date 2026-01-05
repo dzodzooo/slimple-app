@@ -9,6 +9,12 @@ class Session implements SessionInterface
         session_start();
     }
 
+    public function regenerateId()
+    {
+        session_regenerate_id();
+    }
+
+
     public function set(string $name, mixed $value): bool
     {
         if (isset($_SESSION)) {
