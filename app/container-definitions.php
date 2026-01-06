@@ -32,8 +32,8 @@ return [
         $ORMconfig = ORMSetup::createXMLMetadataConfig([
             __DIR__ . '/../config/xml/'
         ]);
-        $ORMconfig->setProxyDir(__DIR__ . '../config/Proxies');
-        $ORMconfig->setProxyNamespace('Proxies');
+        $ORMconfig->setProxyDir(__DIR__ . '/../config/Proxies');
+        $ORMconfig->setProxyNamespace('Config\\Proxies');
         return new EntityManager($connection, $ORMconfig);
     },
     \Twig\Environment::class => function () {

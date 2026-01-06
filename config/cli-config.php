@@ -22,7 +22,7 @@ $ORMconfig = ORMSetup::createXMLMetadataConfig([
     __DIR__ . '/xml'
 ]);
 $ORMconfig->setProxyDir(__DIR__ . '/Proxies');
-$ORMconfig->setProxyNamespace('\Config\Proxies');
+$ORMconfig->setProxyNamespace('Config\\Proxies');
 $entityManager = new EntityManager($connection, $ORMconfig);
 
 $config = new PhpFile(__DIR__ . '/migrations.php');
