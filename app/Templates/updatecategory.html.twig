@@ -1,0 +1,22 @@
+{% block updatecategory %}
+<div id="categoryModalBg" class="none">
+  <form id="categoryModal" method="POST" class="" hidden>
+    <button type="button" onclick="closeModal()" class="redBtn">X</button>
+    <input id="idCatPut" type="hidden" name="id" value="" />
+    <input type="hidden" name="_METHOD" value="PUT" />
+    <input type="hidden" name="{{ csrf.NameKey }}" value="{{ csrf.Name }}" />
+    <input type="hidden" name="{{ csrf.ValueKey }}" value="{{ csrf.Value }}" />
+    <table>
+      <tr>
+        <td><label for="name">Name</label></td>
+        <td>
+          <input id="nameCatPut" name="name" type="text" value="" />
+        </td>
+        <td>
+          <input type="submit" value="Save" class="redBtn" />
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+{% endblock %}

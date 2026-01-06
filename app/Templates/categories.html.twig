@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %} {% use "navbar.html.twig" %} {% use
-"addcategory.html.twig" %}{% block content %} {% set active = "categories" %}
+"addcategory.html.twig" %} {% use "updatecategory.html.twig" %} {% block content
+%} {% set active = "categories" %}
 {{ block("navbar") }}
 
 {{ block("addcategory") }}
@@ -14,6 +15,19 @@
     {% for category in categories %}
     <tr>
       <td>{{ category.name }}</td>
+
+      <td>
+        <button
+          onclick="updateCategory({
+            'name':'{{ category.name }}',
+            'id':'{{ category.id }}'
+          })"
+          class="redBtn"
+        >
+          Change
+        </button>
+      </td>
+
       <td>
         <form action="/categories/{{ category.id }}" method="post">
           <input
@@ -27,7 +41,7 @@
             value="{{ csrf.Value }}"
           />
           <input type="hidden" name="_METHOD" value="DELETE" />
-          <button type="submit">X</button>
+          <button type="submit" class="redBtn">X</button>
         </form>
       </td>
     </tr>
@@ -35,4 +49,4 @@
   </tbody>
 </table>
 
-{% endblock %}
+{{ block("updatecategory") }} {% endblock %}
