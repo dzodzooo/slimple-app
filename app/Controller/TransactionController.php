@@ -20,7 +20,7 @@ class TransactionController
     public function get(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $transactions = $this->transactionRepository->getAllTransactions();
-        $categories = $this->categoryRepository->getAllCategories();
+        $categories = $this->categoryRepository->getAll();
         $this->twig->addGlobal('transactions', $transactions);
         $this->twig->addGlobal('categories', $categories);
         $response->getBody()->write($this->twig->render('transactions.html.twig', []));

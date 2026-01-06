@@ -1,5 +1,7 @@
 {% block addcategory %}
 <form method="POST">
+  <input type="hidden" name="{{ csrf.NameKey }}" value="{{ csrf.Name }}" />
+  <input type="hidden" name="{{ csrf.ValueKey }}" value="{{ csrf.Value }}" />
   <table class="datapost">
     <tr>
       <td><label for="name">Name</label></td>

@@ -23,11 +23,16 @@ return function ($app) {
             $group->post('', [TransactionController::class, 'post']);
         });
 
-        $auth->group('categories', function (RouteCollectorProxy $group) {
-            $group->get('', [CategoryController::class, 'get']);
-            $group->post('', [CategoryController::class, 'post']);
-        });
-    })->add(AuthMiddleware::class);
+        $auth->group(
+            'categories',
+            function (RouteCollectorProxy $group) {
+                $group->get('', [CategoryController::class, 'get']);
+                $group->post('', [CategoryController::class, 'post']);
+                $group->put('', [CategoryController::class, 'update']);
+                $group->delete('/{id}', [CategoryController::class, 'delete']);
+            }
+        )->add(AuthMiddleware::class);
+    });
 
 
     $app->group('/login', function (RouteCollectorProxy $group) {

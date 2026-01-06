@@ -8,5 +8,5 @@ interface CategoryRepositoryInterface
     public function create(array $categoryData);
     public function getAll();
     public function update(array $categoryData);
-    public function delete(array $categoryData);
+    public function delete(int $id);
 }

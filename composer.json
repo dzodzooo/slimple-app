@@ -9,7 +9,8 @@
     "symfony/cache": "^7.4",
     "rakit/validation": "^1.4",
     "twig/twig": "^3.0",
-    "symfony/asset": "^7.4"
+    "symfony/asset": "^7.4",
+    "slim/csrf": "^1.5"
   },
   "autoload": {
     "psr-4": {

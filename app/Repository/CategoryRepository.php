@@ -39,9 +39,9 @@ class CategoryRepository implements CategoryRepositoryInterface
         $this->entityManager->flush();
     }
 
-    public function delete(array $categoryData)
+    public function delete(int $categoryId)
     {
-        $category = $this->entityManager->getReference(Category::class, $categoryData['id']);
+        $category = $this->entityManager->getReference(Category::class, $categoryId);
         $this->entityManager->remove($category);
         $this->entityManager->flush();
     }

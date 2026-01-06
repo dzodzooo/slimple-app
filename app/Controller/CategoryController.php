@@ -35,8 +35,8 @@ class CategoryController
     }
     public function delete(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        $categoryData = $request->getParsedBody();
-        $this->categoryRepository->delete($categoryData);
+        $id = (int) $request->getAttribute('id');
+        $this->categoryRepository->delete($id);
         return $response->withHeader('Location', '/categories')->withStatus(StatusCodeInterface::STATUS_FOUND);
     }
 }
