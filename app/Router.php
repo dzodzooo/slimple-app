@@ -33,8 +33,8 @@ return function (App $app) {
                 $group->put('', [CategoryController::class, 'update']);
                 $group->delete('/{id}', [CategoryController::class, 'delete']);
             }
-        )->add(AuthMiddleware::class);
-    });
+        );
+    })->add(AuthMiddleware::class);
 
 
     $app->group('/login', function (RouteCollectorProxy $group) {
