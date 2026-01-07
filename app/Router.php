@@ -9,9 +9,9 @@ use App\Controller\TransactionController;
 use App\Controller\UserController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
+use Slim\App;
 
-return function ($app) {
-
+return function (App $app) {
     $app->group('/', function (RouteCollectorProxy $auth) {
 
         $auth->get('', [HomeController::class, 'home']);

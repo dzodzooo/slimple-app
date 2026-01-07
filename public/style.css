@@ -32,7 +32,7 @@ nav > a:hover {
 }
 .datatable {
   width: 100%;
-  padding: 3rem;
+  padding: 1rem;
 }
 .datatable > tbody {
   width: 100%;
@@ -168,4 +168,11 @@ label {
   color: #a76d60;
   font-weight: 600;
   padding: 0.5rem;
+}
+
+.categoryform {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 3rem;
 }
