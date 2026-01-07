@@ -4,6 +4,8 @@ namespace App\Contracts;
 
 interface TransactionRepositoryInterface
 {
-    public function getAllTransactions();
-    public function addNewTransaction(array $transactionData);
+    public function create(array $transactionData);
+    public function getAll();
+    public function update(array $transactionData);
+    public function delete(int $id);
 }

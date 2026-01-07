@@ -18,7 +18,7 @@ class TransactionRepository implements TransactionRepositoryInterface
         private readonly SessionInterface $session
     ) {
     }
-    public function getAllTransactions()
+    public function getAll()
     {
         if (!$this->session->hasStarted()) {
             return [];
@@ -38,7 +38,7 @@ class TransactionRepository implements TransactionRepositoryInterface
 
         return $transactions;
     }
-    public function addNewTransaction(array $transactionData)
+    public function create(array $transactionData)
     {
         if (!$this->session->hasStarted()) {
             return [];
@@ -57,5 +57,25 @@ class TransactionRepository implements TransactionRepositoryInterface
 
         $this->entityManager->persist(TransactionFactory::create($transactionData, $user, $category));
         $this->entityManager->flush();
+    }
+
+    public function update(array $transactionData)
+    {
+        $transaction = $this->entityManager->find(Transaction::class, $transactionData['id']);
+
+        $transaction->setAmount($transactionData['amount']);
+        $transaction->setDate($transactionData['date']);
+        $transaction->setDescription($transactionData['description']);
+        $category = $this->entityManager->find(Category::class, $transactionData['categoryId']);
+        $transaction->setCategory($category);
+
+        $this->entityManager->persist($transaction);
+        $this->entityManager->flush();
+    }
+
+    public function delete(int $id)
+    {
+        $transaction = $this->entityManager->find(Transaction::class, $id);
+        $this->entityManager->remove($transaction);
     }
 }

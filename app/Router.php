@@ -21,6 +21,8 @@ return function (App $app) {
         $auth->group('transactions', function (RouteCollectorProxy $group) {
             $group->get('', [TransactionController::class, 'get']);
             $group->post('', [TransactionController::class, 'post']);
+            $group->put('', [TransactionController::class, 'update']);
+            $group->delete('/{id}', [TransactionController::class, 'delete']);
         });
 
         $auth->group(
