@@ -50,6 +50,6 @@ return [
     UserRepositoryInterface::class => fn(EntityManager $entityManager) => new UserRepository($entityManager),
     TransactionRepositoryInterface::class => fn(EntityManager $entityManager, SessionInterface $session) => new TransactionRepository($entityManager, $session),
     CategoryRepositoryInterface::class => fn(EntityManager $entityManager, SessionInterface $session) => new CategoryRepository($entityManager, $session),
-    Guard::class => fn(ResponseFactory $responseFactory) => new Guard($responseFactory)
+    Guard::class => fn(ResponseFactory $responseFactory) => new Guard($responseFactory, persistentTokenMode: true)
 
 ];

@@ -13,12 +13,12 @@
       <th>Name</th>
     </tr>
     {% for category in categories %}
-    <tr>
-      <td>{{ category.name }}</td>
+    <tr id="categoryrow{{ category.id }}">
+      <td id="category_name">{{ category.name }}</td>
 
       <td>
         <button
-          onclick="updateCategory({
+          onclick="openModal({
             'name':'{{ category.name }}',
             'id':'{{ category.id }}'
           })"

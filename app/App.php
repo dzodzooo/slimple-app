@@ -11,8 +11,8 @@ $container = (new ContainerBuilder())->addDefinitions(__DIR__ . '/container-defi
 AppFactory::setContainer($container);
 $app = AppFactory::create();
 
-
 $addMiddleware($app);
+$app->addBodyParsingMiddleware();
 $router($app);
 
 $app->run();
