@@ -18,7 +18,7 @@ class CategoryController
     {
         $categories = $this->categoryRepository->getAll();
         $this->twig->addGlobal('categories', $categories);
-        $response->getBody()->write($this->twig->render('categories.html.twig', []));
+        $response->getBody()->write($this->twig->render('category/categories.html.twig', []));
         return $response;
     }
 

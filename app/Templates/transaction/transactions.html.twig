@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %} {% use "navbar.html.twig" %} {% use
+"transaction/addtransaction.html.twig" %} {% block content %} {% set active =
+"transactions" %}
+
+{{ block("navbar") }}
+
+{{ block("addtransaction") }}
+
+<br />
+
+<table class="datatable">
+  <tbody>
+    <tr>
+      <th>Description</th>
+      <th>Amount</th>
+      <th>Date</th>
+      <th>Category</th>
+    </tr>
+    {% for transaction in transactions %}
+    <tr id="transaction_row{{ transaction.id }}">
+      <td id="transaction_description{{ transaction.id }}">
+        {{ transaction.description }}
+      </td>
+      <td id="transaction_amount{{ transaction.id }}">
+        {{ transaction.amount }}$
+      </td>
+      <td id="transaction_date{{ transaction.id }}">
+        {{ transaction.date.format("d.m.Y.") }}
+      </td>
+      <td id="transaction_category{{ transaction.id }}">
+        {{ transaction.category.getName() }}
+      </td>
+      <td>
+        <button
+          onclick="transactionOpenModal({
+            'id':'{{ transaction.id }}',
+            'description':'{{ transaction.description }}',
+            'amount':'{{ transaction.amount }}',
+            'date':'{{ transaction.date | json_encode }}',
+            'category':'{{ transaction.category.getId() }}',
+          })"
+          class="redBtn"
+        >
+          Change
+        </button>
+      </td>
+
+      <td>
+        <form action="/transactions/{{ transaction.id }}" method="post">
+          <input
+            type="hidden"
+            name="{{ csrf.NameKey }}"
+            value="{{ csrf.Name }}"
+          />
+          <input
+            type="hidden"
+            name="{{ csrf.ValueKey }}"
+            value="{{ csrf.Value }}"
+          />
+          <input type="hidden" name="_METHOD" value="DELETE" />
+          <button type="submit" class="redBtn">X</button>
+        </form>
+      </td>
+    </tr>
+
+    {% endfor %}
+  </tbody>
+</table>
+
+{% include "transaction/updatetransaction.html.twig" %} {% endblock %}

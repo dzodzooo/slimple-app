@@ -1,0 +1,43 @@
+{% extends "modalWindow.html.twig" %} {% block modalWindowContent %}
+{% set min = 100 %}
+  <input type="hidden" id="csrf_name" name="{{ csrf.NameKey }}" value="{{ csrf.Name }}" />
+  <input type="hidden" id="csrf_value" name="{{ csrf.ValueKey }}" value="{{ csrf.Value }}" />
+  <input type="hidden" id="transactionPutId" name="id" value=""/>
+  <button type="button" onclick="closeModalWindow()" class="redBtn">X</button>
+  <table class="datapost">
+    <tr>
+      <td><label for="description">Description</label></td>
+      <td><input id="transactionPutDescription" name="description" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="amount"/>Amount</label></td>
+      <td><input id="transactionPutAmount" name="amount" type="number" value="{{min}}" min="{{min}}"/></td>
+    </tr>
+    <tr>
+      <td><label for="date"/>Date</label></td>
+      <td><input id="transactionPutDate" name="date" type="date" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="category">Category</label></td>
+      <td>
+        <select name="category" id="transactionPutCategory">
+        {% for category in categories %}
+          <option id="transactionPutCategory{{category.id}}" value="{{category.id}}">{{category.name}}</option>    
+        {% endfor %}
+        </select>
+    </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+      <input
+        type="button"
+        onclick="transactionSendPutRequest()"
+        value="Save"
+        class="redBtn"
+      />
+      </td>
+    </tr>
+  </table>
+
+{% endblock %}

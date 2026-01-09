@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %} {% use "navbar.html.twig" %} {% use
-"addcategory.html.twig" %} {% use "updatecategory.html.twig" %} {% block content
-%} {% set active = "categories" %}
+"category/addcategory.html.twig" %} {% block content %} {% set active =
+"categories" %}
 {{ block("navbar") }}
 
 {{ block("addcategory") }}
@@ -13,12 +13,12 @@
       <th>Name</th>
     </tr>
     {% for category in categories %}
-    <tr id="categoryrow{{ category.id }}">
-      <td id="category_name">{{ category.name }}</td>
+    <tr id="category_row{{ category.id }}">
+      <td id="category_name{{ category.id }}">{{ category.name }}</td>
 
       <td>
         <button
-          onclick="openModal({
+          onclick="catOpenModal({
             'name':'{{ category.name }}',
             'id':'{{ category.id }}'
           })"
@@ -49,4 +49,4 @@
   </tbody>
 </table>
 
-{{ block("updatecategory") }} {% endblock %}
+{% include "category/updatecategory.html.twig" %} {% endblock content %}

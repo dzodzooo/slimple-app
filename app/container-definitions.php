@@ -1,5 +1,6 @@
 <?php
 
+use App\Middleware\BadRequestMiddleware;
 use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\ORMSetup;
@@ -16,7 +17,6 @@ use \App\Repository\UserRepository;
 use \App\Repository\TransactionRepository;
 use Slim\Csrf\Guard;
 use Slim\Psr7\Factory\ResponseFactory;
-use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 return [
     EntityManager::class => function () {
@@ -53,6 +53,7 @@ return [
     TransactionRepositoryInterface::class => fn(EntityManager $entityManager, SessionInterface $session) => new TransactionRepository($entityManager, $session),
     CategoryRepositoryInterface::class => fn(EntityManager $entityManager, SessionInterface $session) => new CategoryRepository($entityManager, $session),
     Guard::class => fn(ResponseFactory $responseFactory) => new Guard($responseFactory, persistentTokenMode: true),
-    RouteNotFoundMiddleware::class => fn(ResponseFactory $responseFactory, SessionInterface $session) => new RouteNotFoundMiddleware($responseFactory, $session)
+    RouteNotFoundMiddleware::class => fn(ResponseFactory $responseFactory, SessionInterface $session) => new RouteNotFoundMiddleware($responseFactory, $session),
+    BadRequestMiddleware::class => fn(ResponseFactory $responseFactory) => new BadRequestMiddleware($responseFactory)
 
 ];

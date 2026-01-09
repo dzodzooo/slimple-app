@@ -1,0 +1,6 @@
+.update-successful {
+  border: green 1px solid;
+}
+.update-failed {
+  border: red 1px solid;
+}

@@ -23,7 +23,7 @@ class TransactionController
         $categories = $this->categoryRepository->getAll();
         $this->twig->addGlobal('transactions', $transactions);
         $this->twig->addGlobal('categories', $categories);
-        $response->getBody()->write($this->twig->render('transactions.html.twig', []));
+        $response->getBody()->write($this->twig->render('transaction/transactions.html.twig', []));
         return $response;
     }
     public function post(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
@@ -34,14 +34,14 @@ class TransactionController
     }
     public function update(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        $transactionData = $request->getParsedBody();
+        $transactionData = $request->getParsedBody()['transaction'];
         $this->transactionRepository->update($transactionData);
         return $response->withStatus(StatusCodeInterface::STATUS_OK);
     }
 
     public function delete(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        $transactionId = $request->getAttribute('id');
+        $transactionId = (int) $request->getAttribute('id');
         $this->transactionRepository->delete($transactionId);
         return $response->withHeader('Location', '/transactions')->withStatus(StatusCodeInterface::STATUS_FOUND);
     }

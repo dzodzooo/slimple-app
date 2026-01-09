@@ -61,10 +61,11 @@ class TransactionRepository implements TransactionRepositoryInterface
 
     public function update(array $transactionData)
     {
+        var_dump($transactionData);
         $transaction = $this->entityManager->find(Transaction::class, $transactionData['id']);
 
-        $transaction->setAmount($transactionData['amount']);
-        $transaction->setDate($transactionData['date']);
+        $transaction->setAmount((float) $transactionData['amount']);
+        $transaction->setDate(new DateTime($transactionData['date']));
         $transaction->setDescription($transactionData['description']);
         $category = $this->entityManager->find(Category::class, $transactionData['categoryId']);
         $transaction->setCategory($category);
@@ -77,5 +78,6 @@ class TransactionRepository implements TransactionRepositoryInterface
     {
         $transaction = $this->entityManager->find(Transaction::class, $id);
         $this->entityManager->remove($transaction);
+        $this->entityManager->flush();
     }
 }
