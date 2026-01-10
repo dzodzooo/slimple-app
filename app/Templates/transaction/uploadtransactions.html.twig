@@ -1,0 +1,6 @@
+<form action="/transactions/upload" method="post" enctype="multipart/form-data">
+  <input type="hidden" name="{{ csrf.NameKey }}" value="{{ csrf.Name }}" />
+  <input type="hidden" name="{{ csrf.ValueKey }}" value="{{ csrf.Value }}" />
+  <input type="file" name="file" accept=".tsv" />
+  <input type="submit" value="upload file" />
+</form>

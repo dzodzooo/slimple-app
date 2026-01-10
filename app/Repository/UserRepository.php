@@ -48,4 +48,8 @@ class UserRepository implements UserRepositoryInterface
 
         return null;
     }
+    public function get(int $id): User|null
+    {
+        return $this->entityManager->getRepository(User::class)->find($id);
+    }
 }

@@ -23,6 +23,7 @@ return function (App $app) {
             $group->post('', [TransactionController::class, 'post']);
             $group->put('', [TransactionController::class, 'update']);
             $group->delete('/{id}', [TransactionController::class, 'delete']);
+            $group->post('/upload', [TransactionController::class, 'upload']);
         });
 
         $auth->group(

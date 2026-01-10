@@ -11,10 +11,12 @@ use Doctrine\ORM\EntityManager;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
+    private $repository;
     public function __construct(
         private readonly EntityManager $entityManager,
         private readonly SessionInterface $session
     ) {
+        $this->repository = $this->entityManager->getRepository(Category::class);
     }
     public function create(array $categoryData)
     {
@@ -22,13 +24,16 @@ class CategoryRepository implements CategoryRepositoryInterface
         $this->entityManager->persist(CategoryFactory::create($categoryData, $user));
         $this->entityManager->flush();
     }
+    public function get(int $id): Category|null
+    {
+        return $this->repository->find($id);
+    }
     public function getAll()
     {
-        $repository = $this->entityManager->getRepository(Category::class);
         if (!$this->session->hasStarted() or !$this->session->get('user'))
             return [];
         $user = $this->entityManager->getReference(User::class, $this->session->get('user')->id);
-        $categories = $repository->findBy(['user' => $user]);
+        $categories = $this->repository->findBy(['user' => $user]);
         return $categories;
     }
     public function update(array $categoryData)

@@ -3,9 +3,12 @@ declare(strict_types=1);
 
 namespace App\Contracts;
 
+use App\Entity\Category;
+
 interface CategoryRepositoryInterface
 {
     public function create(array $categoryData);
+    public function get(int $id): Category|null;
     public function getAll();
     public function update(array $categoryData);
     public function delete(int $id);
