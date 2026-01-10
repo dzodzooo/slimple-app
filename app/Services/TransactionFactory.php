@@ -9,7 +9,7 @@ use DateTime;
 
 class TransactionFactory
 {
-    public static function create(array $transactionData, User $user, Category $category): Transaction
+    public static function create(array $transactionData, User $user, ?Category $category): Transaction
     {
         $transaction = new Transaction();
         $transaction->setAmount((float) $transactionData['amount']);

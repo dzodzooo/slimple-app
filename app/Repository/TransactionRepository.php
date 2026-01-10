@@ -52,8 +52,8 @@ class TransactionRepository implements TransactionRepositoryInterface
         $user = $userRepository->find($userDTO->id);
 
         $categoryRepository = $this->entityManager->getRepository(Category::class);
-        $category = $categoryRepository->find($transactionData['category']);
-
+        $categories = $categoryRepository->findBy(['id' => $transactionData['category'], 'user' => $user]);
+        $category = count($categories) == 1 ? $categories[0] : null;
 
         $this->entityManager->persist(TransactionFactory::create($transactionData, $user, $category));
         $this->entityManager->flush();

@@ -10,7 +10,7 @@ class Transaction extends Identifiable
     private \DateTime $date;
 
     private User $user;
-    private Category $category;
+    private ?Category $category;
     private Receipt $receipt;
 
     public function setAmount(float $amount): void
@@ -51,13 +51,15 @@ class Transaction extends Identifiable
     {
         return $this->user;
     }
-    public function setCategory(Category $category): void
+    public function setCategory(?Category $category): void
     {
+        if ($category === null)
+            return;
         $category->addTransaction($this);
         $this->category = $category;
     }
 
-    public function getCategory(): Category
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
