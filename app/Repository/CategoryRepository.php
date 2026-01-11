@@ -6,7 +6,7 @@ use App\Contracts\CategoryRepositoryInterface;
 use App\Contracts\SessionInterface;
 use \App\Entity\Category;
 use \App\Entity\User;
-use App\Services\CategoryFactory;
+use App\Factory\CategoryFactory;
 use Doctrine\ORM\EntityManager;
 
 class CategoryRepository implements CategoryRepositoryInterface

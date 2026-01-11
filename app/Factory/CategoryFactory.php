@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace App\Services;
+namespace App\Factory;
 
 use App\Entity\Category;
 use App\Entity\User;

@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace App\Services;
+namespace App\Validator;
 
 use App\Exception\ValidationException;
 use Rakit\Validation\Validator;

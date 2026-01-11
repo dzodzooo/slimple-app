@@ -15,8 +15,11 @@ use \App\Services\AuthService;
 use \App\Repository\CategoryRepository;
 use \App\Repository\UserRepository;
 use \App\Repository\TransactionRepository;
+use Doctrine\DBAL\Logging\Middleware;
 use Slim\Csrf\Guard;
 use Slim\Psr7\Factory\ResponseFactory;
+
+use function DI\create;
 
 return [
     EntityManager::class => function () {
@@ -29,13 +32,13 @@ return [
             'port' => $_ENV['DB_PORT'],
             'dbname' => $_ENV['DB_NAME']
         ];
-        $connection = DriverManager::getConnection($connectionParams);
-
         $ORMconfig = ORMSetup::createXMLMetadataConfig([
             __DIR__ . '/../config/xml/'
         ]);
         $ORMconfig->setProxyDir(__DIR__ . '/../config/Proxies');
         $ORMconfig->setProxyNamespace('Config\\Proxies');
+        $connection = DriverManager::getConnection($connectionParams, $ORMconfig);
+
         return new EntityManager($connection, $ORMconfig);
     },
     \Twig\Environment::class => function () {
@@ -54,6 +57,5 @@ return [
     CategoryRepositoryInterface::class => fn(EntityManager $entityManager, SessionInterface $session) => new CategoryRepository($entityManager, $session),
     Guard::class => fn(ResponseFactory $responseFactory) => new Guard($responseFactory, persistentTokenMode: true),
     RouteNotFoundMiddleware::class => fn(ResponseFactory $responseFactory, SessionInterface $session) => new RouteNotFoundMiddleware($responseFactory, $session),
-    BadRequestMiddleware::class => fn(ResponseFactory $responseFactory) => new BadRequestMiddleware($responseFactory)
-
+    BadRequestMiddleware::class => fn(ResponseFactory $responseFactory) => new BadRequestMiddleware($responseFactory),
 ];

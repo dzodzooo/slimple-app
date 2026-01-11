@@ -9,8 +9,8 @@ use Fig\Http\Message\StatusCodeInterface;
 use \App\Contracts\AuthInterface;
 use \App\Contracts\SessionInterface;
 use \App\Exception\ValidationException;
-use \App\Services\LoginValidator;
-use \App\Services\RegistrationValidator;
+use \App\Validator\LoginValidator;
+use \App\Validator\RegistrationValidator;
 
 class UserController
 {
@@ -36,21 +36,22 @@ class UserController
 
         if ($this->authService->userExists($userData)) {
             $oldData = array_diff_key($userData, ['password' => '', 'confirmPassword' => '']);
-            throw new ValidationException(['email' => ['email taken.']], $oldData);
+            throw new ValidationException(['email' => ['Email taken.']], $oldData);
         }
 
         $user = $this->authService->register($userData);
 
         if (isset($user)) {
             $this->session->set('user', $user);
+            $this->session->unset('errors');
+            $this->session->unset('oldData');
             return $response
                 ->withStatus(StatusCodeInterface::STATUS_FOUND)
                 ->withHeader('Location', '/');
         }
 
-        return $response
-            ->withStatus(StatusCodeInterface::STATUS_FOUND)
-            ->withHeader('Location', '/');
+        $oldData = array_diff_key($userData, ['password' => '', 'confirmPassword' => '']);
+        throw new ValidationException([], $oldData);
     }
 
     public function getLoginPage(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
@@ -69,6 +70,8 @@ class UserController
         if (isset($user)) {
 
             $this->session->set('user', $user);
+            $this->session->unset('errors');
+            $this->session->unset('oldData');
 
             return $response
                 ->withStatus(StatusCodeInterface::STATUS_FOUND)

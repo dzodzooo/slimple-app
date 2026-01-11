@@ -7,7 +7,7 @@ use App\Contracts\TransactionRepositoryInterface;
 use App\Entity\Category;
 use App\Entity\Transaction;
 use App\Entity\User;
-use App\Services\TransactionFactory;
+use App\Factory\TransactionFactory;
 use DateTime;
 use Doctrine\ORM\EntityManager;
 

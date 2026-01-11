@@ -3,7 +3,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Contracts\SessionInterface;
-use Fig\Http\Message\StatusCodeInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 

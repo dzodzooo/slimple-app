@@ -46,4 +46,10 @@ class Session implements SessionInterface
     {
         return session_status() === PHP_SESSION_ACTIVE;
     }
+    public function unset(string $name)
+    {
+        if (isset($_SESSION) and isset($_SESSION[$name])) {
+            unset($_SESSION[$name]);
+        }
+    }
 }
