@@ -9,6 +9,7 @@ interface CategoryRepositoryInterface
 {
     public function create(array $categoryData);
     public function get(int $id): Category|null;
+    public function getByName(string $name): Category|null;
     public function getAll();
     public function update(array $categoryData);
     public function delete(int $id);

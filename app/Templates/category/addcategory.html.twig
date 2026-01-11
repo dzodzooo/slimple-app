@@ -5,10 +5,25 @@
   <table class="datapost">
     <tr>
       <td><label for="name">Name</label></td>
-      <td><input id="name" name="name" type="text" value="" /></td>
+      <td>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          value="{{ oldData.name }}"
+          required
+        />
+      </td>
       <td>
         <input type="submit" value="Add Category" class="btnSubmit" />
       </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <span class="error"> {{ errors.name | first }}</span>
+      </td>
+      <td></td>
     </tr>
   </table>
 </form>

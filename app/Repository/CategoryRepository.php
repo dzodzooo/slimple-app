@@ -50,4 +50,8 @@ class CategoryRepository implements CategoryRepositoryInterface
         $this->entityManager->remove($category);
         $this->entityManager->flush();
     }
+    public function getByName(string $name): Category|null
+    {
+        return $this->entityManager->getRepository(Category::class)->findOneBy(['name' => $name]);
+    }
 }
