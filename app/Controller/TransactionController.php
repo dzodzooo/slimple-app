@@ -2,20 +2,21 @@
 declare(strict_types=1);
 namespace App\Controller;
 
-use App\Contracts\CategoryRepositoryInterface;
-use App\Contracts\TransactionRepositoryInterface;
+use App\Contracts\SessionInterface;
 use App\Exception\InvalidFileUploadException;
 use Fig\Http\Message\StatusCodeInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Message\UploadedFileInterface;
 use \App\Services\TransactionService;
+use App\Validator\TransactionValidator;
 
 class TransactionController
 {
     public function __construct(
         private readonly \Twig\Environment $twig,
-        private readonly TransactionService $transactionService
+        private readonly TransactionValidator $validator,
+        private readonly TransactionService $transactionService,
+        private readonly SessionInterface $session
     ) {
 
     }
@@ -24,13 +25,23 @@ class TransactionController
         [$transactions, $categories] = $this->transactionService->getAllTransactionsAndCategories();
         $this->twig->addGlobal('transactions', $transactions);
         $this->twig->addGlobal('categories', $categories);
-        $response->getBody()->write($this->twig->render('transaction/transactions.html.twig', []));
+        $response->getBody()->write($this->twig->render('transaction/transactions.html.twig', [
+            'oldData' => $this->session->get('oldData'),
+            'errors' => $this->session->get('errors')
+        ]));
         return $response;
     }
     public function post(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $transactionData = $request->getParsedBody();
+
+        $this->validator->validate($transactionData);
+
         $this->transactionService->create($transactionData);
+
+        $this->session->unset('errors');
+        $this->session->unset('oldData');
+
         return $response->withHeader('Location', '/transactions')->withStatus(StatusCodeInterface::STATUS_FOUND);
     }
     public function update(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface

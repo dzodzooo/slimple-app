@@ -9,6 +9,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN docker-php-ext-install pdo pdo_mysql mysqli && docker-php-ext-enable pdo_mysql mysqli
 
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+
 COPY ./composer.json /var/www/html
 
 COPY ./composer.lock /var/www/html
