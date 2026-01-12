@@ -1,9 +1,51 @@
 import { openModalWindow, closeModalWindow } from "./modalWindow.js";
 
-export function transactionOpenModal(transaction) {
+export function transactionSetup() {
+  let elements = document.getElementsByClassName("transactionBtnOpenModal");
+  let length = elements.length;
+  for (let index = 0; index < length; index++) {
+    const element = elements[index];
+    element.addEventListener("click", transactionOpenModal);
+  }
+}
+
+function transactionOpenModal(event) {
+  let element = event.target;
+  let transactionId = getTransactionId(element);
+  let transaction = getTransactionData(transactionId);
   markUpdateUnknown(transaction);
   openModalWindow();
   setModalFields(transaction);
+}
+
+function getTransactionId(button) {
+  let btnId = button.id;
+  let transactionId = btnId.match(/[0-9]+/g)[0];
+  return transactionId;
+}
+
+function getTransactionData(id) {
+  let transaction = {};
+  transaction.id = id;
+  let description = document.getElementById(`transaction_description${id}`);
+  transaction.description = sanitize(description.innerHTML);
+  let amount = document.getElementById(`transaction_amount${id}`);
+  let sanitized = sanitize(amount.innerHTML);
+  transaction.amount = sanitized.match(/[0-9]+/g)[0];
+  let date = document.getElementById(`transaction_date${id}`);
+  let datesanitized = sanitize(date.innerHTML);
+  let datearr = datesanitized.split(".");
+  transaction.date = datearr[2] + "-" + datearr[1] + "-" + datearr[0];
+
+  let category = document.getElementById(`transaction_category${id}`);
+  transaction.category = category.dataset.id;
+  console.log(transaction);
+  return transaction;
+}
+function sanitize(string) {
+  let sanitized = string.match(/[^\n +].+[^\n +]/g)[0];
+  console.log(sanitized);
+  return sanitized;
 }
 
 function setModalFields(transaction) {
@@ -14,8 +56,7 @@ function setModalFields(transaction) {
   let amountinput = document.getElementById("transactionPutAmount");
   amountinput.value = transaction.amount;
   let dateinput = document.getElementById("transactionPutDate");
-  let date_valid_format = JSON.parse(transaction.date)["date"].split(" ")[0];
-  dateinput.value = date_valid_format;
+  dateinput.value = transaction.date;
   let categoryselect = document.getElementById("transactionPutCategory");
   categoryselect.value = transaction.category;
 }
@@ -67,24 +108,22 @@ export function transactionSendPutRequest() {
 
 function transactionRenderUpdated(transaction) {
   let description_td = document.querySelector(
-    `#transaction_row${transaction.id} #transaction_description${transaction.id}`
+    `#transaction_description${transaction.id}`
   );
   description_td.innerHTML = transaction.description;
 
   let amount_td = document.querySelector(
-    `#transaction_row${transaction.id} #transaction_amount${transaction.id}`
+    `#transaction_amount${transaction.id}`
   );
   amount_td.innerHTML = `${transaction.amount}$`;
 
-  let date_td = document.querySelector(
-    `#transaction_row${transaction.id} #transaction_date${transaction.id}`
-  );
+  let date_td = document.querySelector(`#transaction_date${transaction.id}`);
   date_td.innerHTML = `${new Date(transaction.date).toLocaleDateString(
     "uk-Uk"
   )}.`;
 
   let category_td = document.querySelector(
-    `#transaction_row${transaction.id} #transaction_category${transaction.id}`
+    `#transaction_category${transaction.id}`
   );
   let category_value = document.getElementById(
     `transactionPutCategory${transaction.categoryId}`
