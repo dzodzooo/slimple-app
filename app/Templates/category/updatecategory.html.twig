@@ -3,7 +3,7 @@
 <button type="button" onclick="closeModalWindow()" class="redBtn">X</button>
 <input
   type="hidden"
-  id="csrf_id"
+  id="csrf_name"
   name="{{ csrf.NameKey }}"
   value="{{ csrf.Name }}"
 />
@@ -22,7 +22,7 @@
     <td>
       <input
         type="button"
-        onclick="transactionSendPutRequest()"
+        onclick="catSendPutRequest()"
         value="Save"
         class="redBtn"
       />

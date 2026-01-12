@@ -14,15 +14,16 @@
     </tr>
     {% for category in categories %}
     <tr id="category_row{{ category.id }}">
-      <td id="category_name{{ category.id }}">{{ category.name }}</td>
+      <td>
+        <span id="category_name{{ category.id }}" value="{{ category.name }}">{{
+          category.name
+        }}</span>
+      </td>
 
       <td>
         <button
-          onclick="catOpenModal({
-            'name':'{{ category.name }}',
-            'id':'{{ category.id }}'
-          })"
-          class="redBtn"
+          id="catBtnOpenModal{{ category.id }}"
+          class="redBtn catBtnOpenModal"
         >
           Change
         </button>

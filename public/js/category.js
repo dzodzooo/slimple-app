@@ -1,12 +1,29 @@
 import { openModalWindow, closeModalWindow } from "./modalWindow.js";
 
-export function catOpenModal(category) {
+function catOpenModal(event) {
+  let element = event.target;
+  let catId = getCategoryId(element);
+  let category = getCategoryData(catId);
   markUpdateUnknown(category);
   openModalWindow();
   let nameinput = document.getElementById("nameCatPut");
   nameinput.value = category.name;
   let idinput = document.getElementById("idCatPut");
   idinput.value = category.id;
+}
+
+function getCategoryId(button) {
+  let btnId = button.id;
+  let catId = btnId.match(/[0-9]+/g)[0];
+  return catId;
+}
+
+function getCategoryData(id) {
+  let category = {};
+  let span = document.getElementById(`category_name${id}`);
+  category.name = span.innerHTML;
+  category.id = id;
+  return category;
 }
 
 export function catSendPutRequest() {
@@ -43,9 +60,7 @@ export function catSendPutRequest() {
 }
 
 function catRenderUpdated(category) {
-  let name_td = document.querySelector(
-    `#category_row${category.id} #category_name${category.id}`
-  );
+  let name_td = document.querySelector(`#category_name${category.id}`);
   name_td.innerHTML = category.name;
 }
 
@@ -61,4 +76,14 @@ function markUpdateUnknown(category) {
   let category_tr = document.getElementById(`category_row${category.id}`);
   category_tr.classList.remove("update-failed");
   category_tr.classList.remove("update-successful");
+}
+
+export function catSetup() {
+  let elements = document.getElementsByClassName("catBtnOpenModal");
+  let length = elements.length;
+  for (let index = 0; index < length; index++) {
+    const element = elements[index];
+
+    element.addEventListener("click", catOpenModal);
+  }
 }
