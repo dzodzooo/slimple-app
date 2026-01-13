@@ -16,6 +16,7 @@ return function (App $app) {
 
         $auth->get('', [HomeController::class, 'home']);
         $auth->post('verify', [UserController::class, 'verify']);
+        $auth->get('getNewVerificationCode', [UserController::class, 'getNewVerificationCode']);
         $auth->get('logout', [UserController::class, 'logout']);
 
         $auth->group('transactions', function (RouteCollectorProxy $group) {

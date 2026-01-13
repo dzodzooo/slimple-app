@@ -96,4 +96,9 @@ class UserController
         }
         return $response->withStatus(StatusCodeInterface::STATUS_BAD_REQUEST);
     }
+    public function getNewVerificationCode(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    {
+        $this->authService->sendVerificationCode($this->session->get('user'));
+        return $response->WithStatus(StatusCodeInterface::STATUS_OK);
+    }
 }
