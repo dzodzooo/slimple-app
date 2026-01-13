@@ -28,7 +28,7 @@ class CategoryRepository implements CategoryRepositoryInterface
     {
         return $this->repository->find($id);
     }
-    public function getAll(array $orderby = ['id' => 'ASC'])
+    public function getAll(?array $orderby = ['id' => 'ASC'])
     {
         if (!$this->session->hasStarted() or !$this->session->get('user'))
             return [];

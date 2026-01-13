@@ -158,3 +158,19 @@ label {
 table {
   border-collapse: collapse;
 }
+
+.orderBy {
+  display: inline;
+}
+.orderBy button {
+  background-color: transparent;
+  border-style: none;
+  color: #e0d0c1;
+  font-weight: 900;
+}
+.orderBy button:active {
+  color: #00a676;
+}
+.orderBy button:hover {
+  cursor: pointer;
+}

@@ -20,7 +20,15 @@ class CategoryController
     }
     public function get(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        $categories = $this->categoryRepository->getAll();
+        $bodyParams = $request->getQueryParams();
+        $params = null;
+        if ($bodyParams) {
+            $paramName = $bodyParams['name'];
+            $orderBy = $bodyParams['orderBy'];
+            $params = [$paramName => $orderBy];
+        }
+
+        $categories = $this->categoryRepository->getAll($params);
         $this->twig->addGlobal('categories', $categories);
         $response->getBody()->write($this->twig->render('category/categories.html.twig', [
             'errors' => $this->session->get('errors'),

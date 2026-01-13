@@ -10,7 +10,19 @@
 <table class="datatable">
   <tbody>
     <tr>
-      <th>Name</th>
+      <th>
+        Name
+        <form action="/categories" method="get" class="orderBy">
+          <input type="hidden" name="name" value="name" />
+          <input type="hidden" name="orderBy" value="ASC" />
+          <button type="submit">↑</button>
+        </form>
+        <form action="/categories" method="get" class="orderBy">
+          <input type="hidden" name="name" value="name" />
+          <input type="hidden" name="orderBy" value="DESC" />
+          <button type="submit">↓</button>
+        </form>
+      </th>
     </tr>
     {% for category in categories %}
     <tr id="category_row{{ category.id }}">
