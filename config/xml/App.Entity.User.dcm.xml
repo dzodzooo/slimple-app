@@ -7,7 +7,7 @@
         <field name="name" type="string" />
         <field name="email" type="string" />
         <field name="password" type="string" />
-        <field name="verified" type="boolean" />
+        <field name="verified" type="boolean"/>
         <one-to-many field="transactions" target-entity="App\Entity\Transaction" mapped-by="user"/>
         <one-to-many field="categories" target-entity="App\Entity\Category" mapped-by="user" />
         <one-to-many field="codes" target-entity="App\Entity\VerificationCode" mapped-by="user"/>

@@ -2,4 +2,5 @@
 {% set active = "home" %}
 {{ block("navbar") }}
 <h3>Hello {{ username }}</h3>
-{% include "verifyemail.html.twig" %} {% endblock %}
+{% if not verified %} {% include "verifyemail.html.twig" %} {% endif %} {%
+endblock %}

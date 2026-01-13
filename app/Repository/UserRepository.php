@@ -31,7 +31,7 @@ class UserRepository implements UserRepositoryInterface
 
         $password = password_hash($userData['password'], PASSWORD_BCRYPT);
         $user->setPassword($password);
-
+        $user->setVerified(false);
         $this->entityManager->persist($user);
 
         $this->entityManager->flush();

@@ -16,6 +16,7 @@ class HomeController
     public function home(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $this->twig->addGlobal('username', $this->session->get('user')->name);
+        $this->twig->addGlobal('verified', $this->session->get('verified'));
         $response->getBody()->write($this->twig->render('home.html.twig', []));
         return $response;
     }

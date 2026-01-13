@@ -25,6 +25,7 @@ class TransactionController
         [$transactions, $categories] = $this->transactionService->getAllTransactionsAndCategories();
         $this->twig->addGlobal('transactions', $transactions);
         $this->twig->addGlobal('categories', $categories);
+        $this->twig->addGlobal('verified', $this->session->get('verified'));
         $response->getBody()->write($this->twig->render('transaction/transactions.html.twig', [
             'oldData' => $this->session->get('oldData'),
             'errors' => $this->session->get('errors')

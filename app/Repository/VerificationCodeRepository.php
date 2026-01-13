@@ -38,6 +38,7 @@ class VerificationCodeRepository implements VerificationCodeRepositoryInterface
             throw new Exception('User not found');
         $verificationCode = $this->entityManager->getRepository(VerificationCode::class)->findOneBy(['user' => $user, 'code' => $code]);
         $user->setVerified($verificationCode instanceof VerificationCode);
+        $this->entityManager->persist($user);
         $this->entityManager->flush();
         return $user->getVerified();
     }

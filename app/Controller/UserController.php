@@ -74,6 +74,8 @@ class UserController
             $this->session->unset('errors');
             $this->session->unset('oldData');
 
+            $this->twig->addGlobal('verified', $user->getVerified());
+
             return $response
                 ->withStatus(StatusCodeInterface::STATUS_FOUND)
                 ->withHeader('Location', '/');
@@ -88,8 +90,10 @@ class UserController
     }
     public function verify(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        if ($this->authService->tryVerify($request->getParsedBody()['code']))
-            return $response->withStatus(StatusCodeInterface::STATUS_OK);
+        if ($this->authService->tryVerify($request->getParsedBody()['code'])) {
+            $this->session->set('verified', true);
+            return $response->withStatus(StatusCodeInterface::STATUS_FOUND)->withHeader('Location', '/');
+        }
         return $response->withStatus(StatusCodeInterface::STATUS_BAD_REQUEST);
     }
 }
