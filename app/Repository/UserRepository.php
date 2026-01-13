@@ -12,11 +12,11 @@ class UserRepository implements UserRepositoryInterface
     public function __construct(private readonly EntityManager $entityManager)
     {
     }
-    public function getByEmail(string $email): UserDTO|null
+    public function getByEmail(string $email): User|null
     {
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
         if (isset($user)) {
-            return new UserDTO($user->getId(), $user->getName(), $user->getEmail(), $user->getPassword());
+            return $user;
         }
         return null;
     }
@@ -36,14 +36,14 @@ class UserRepository implements UserRepositoryInterface
 
         $this->entityManager->flush();
 
-        return new UserDTO($user->getId(), $user->getName(), $user->getEmail(), $user->getPassword());
+        return new UserDTO($user->getId(), $user->getName(), $user->getEmail());
     }
-    public function login(array $userData): UserDTO|null
+    public function login(array $userData): array|null
     {
-        $userDTO = $this->getByEmail($userData['email']);
+        $user = $this->getByEmail($userData['email']);
 
-        if (isset($userDTO) and password_verify($userData['password'], $userDTO->password)) {
-            return $userDTO;
+        if (isset($user) and password_verify($userData['password'], $user->getPassword())) {
+            return [new UserDTO($user->getId(), $user->getName(), $user->getEmail()), $user->getVerified()];
         }
 
         return null;

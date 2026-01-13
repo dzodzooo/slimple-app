@@ -13,9 +13,9 @@ use \App\Session;
 use \App\Controller\UserController;
 use \App\Contracts\SessionInterface;
 use \App\Exception\ValidationException;
+use App\Repository\VerificationCodeRepository;
 use \App\Services\AuthService;
-use \App\Services\LoginValidator;
-use \App\Services\RegistrationValidator;
+use PHPMailer\PHPMailer\PHPMailer;
 use \Tests\Unit\Services\UserRepoMockup;
 
 class UserControllerTest extends TestCase
@@ -27,12 +27,14 @@ class UserControllerTest extends TestCase
     protected function setUp(): void
     {
         $twigMock = $this->createStub(\Twig\Environment::class);
+        $mailerMock = $this->createStub(PHPMailer::class);
+        $verificationCodeRepoMock = $this->createStub(VerificationCodeRepository::class);
 
         $userRepo = new UserRepoMockup();
         $userRepo->init();
-        $authService = new AuthService($userRepo);
-        $registrationValidator = new RegistrationValidator();
-        $login = new LoginValidator();
+        $authService = new AuthService($userRepo, $verificationCodeRepoMock, $mailerMock);
+        $registrationValidator = new \App\Validator\RegistrationValidator();
+        $login = new \App\Validator\LoginValidator();
         $this->session = new Session();
 
         $this->userController = new UserController($twigMock, $this->session, $authService, $registrationValidator, $login);

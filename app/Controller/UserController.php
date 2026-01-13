@@ -66,15 +66,16 @@ class UserController
 
         $this->loginValidator->validate($userData);
 
-        $user = $this->authService->login($userData);
+        [$user, $verified] = $this->authService->login($userData);
 
         if (isset($user)) {
 
             $this->session->set('user', $user);
+            $this->session->set('verified', $verified);
             $this->session->unset('errors');
             $this->session->unset('oldData');
 
-            $this->twig->addGlobal('verified', $user->getVerified());
+            $this->twig->addGlobal('verified', $verified);
 
             return $response
                 ->withStatus(StatusCodeInterface::STATUS_FOUND)

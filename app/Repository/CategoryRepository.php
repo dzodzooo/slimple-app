@@ -28,12 +28,12 @@ class CategoryRepository implements CategoryRepositoryInterface
     {
         return $this->repository->find($id);
     }
-    public function getAll()
+    public function getAll(array $orderby = ['id' => 'ASC'])
     {
         if (!$this->session->hasStarted() or !$this->session->get('user'))
             return [];
         $user = $this->entityManager->getReference(User::class, $this->session->get('user')->id);
-        $categories = $this->repository->findBy(['user' => $user]);
+        $categories = $this->repository->findBy(['user' => $user], $orderby);
         return $categories;
     }
     public function update(array $categoryData): bool
