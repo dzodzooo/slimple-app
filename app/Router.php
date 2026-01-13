@@ -15,7 +15,7 @@ return function (App $app) {
     $app->group('/', function (RouteCollectorProxy $auth) {
 
         $auth->get('', [HomeController::class, 'home']);
-
+        $auth->post('verify', [UserController::class, 'verify']);
         $auth->get('logout', [UserController::class, 'logout']);
 
         $auth->group('transactions', function (RouteCollectorProxy $group) {

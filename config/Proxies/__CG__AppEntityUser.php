@@ -26,11 +26,14 @@ class User extends \App\Entity\User implements \Doctrine\ORM\Proxy\InternalProxy
         "\0".'*'."\0".'id' => [parent::class, 'id', null, 8],
         "\0".'*'."\0".'updatedAt' => [parent::class, 'updatedAt', null, 8],
         "\0".parent::class."\0".'categories' => [parent::class, 'categories', null, 16],
+        "\0".parent::class."\0".'codes' => [parent::class, 'codes', null, 16],
         "\0".parent::class."\0".'email' => [parent::class, 'email', null, 16],
         "\0".parent::class."\0".'name' => [parent::class, 'name', null, 16],
         "\0".parent::class."\0".'password' => [parent::class, 'password', null, 16],
         "\0".parent::class."\0".'transactions' => [parent::class, 'transactions', null, 16],
+        "\0".parent::class."\0".'verified' => [parent::class, 'verified', null, 16],
         'categories' => [parent::class, 'categories', null, 16],
+        'codes' => [parent::class, 'codes', null, 16],
         'createdAt' => [parent::class, 'createdAt', null, 8],
         'email' => [parent::class, 'email', null, 16],
         'id' => [parent::class, 'id', null, 8],
@@ -38,6 +41,7 @@ class User extends \App\Entity\User implements \Doctrine\ORM\Proxy\InternalProxy
         'password' => [parent::class, 'password', null, 16],
         'transactions' => [parent::class, 'transactions', null, 16],
         'updatedAt' => [parent::class, 'updatedAt', null, 8],
+        'verified' => [parent::class, 'verified', null, 16],
     ];
 
     public function __isInitialized(): bool

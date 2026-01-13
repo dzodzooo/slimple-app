@@ -14,6 +14,8 @@ class User extends Identifiable
     private string $password;
     private Collection $transactions;
     private Collection $categories;
+    private Collection $codes;
+    private bool $verified;
 
     public function setName(string $name)
     {
@@ -52,6 +54,19 @@ class User extends Identifiable
     {
         $this->transactions = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->codes = new ArrayCollection();
     }
 
+    public function addCode(VerificationCode $code)
+    {
+        $this->codes->add($code);
+    }
+    public function setVerified(bool $verified)
+    {
+        $this->verified = $verified;
+    }
+    public function getVerified()
+    {
+        return $this->verified;
+    }
 }

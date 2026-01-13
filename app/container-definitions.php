@@ -1,6 +1,7 @@
 <?php
 
 use App\Middleware\BadRequestMiddleware;
+use App\Repository\VerificationCodeRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\ORMSetup;
@@ -10,12 +11,14 @@ use \App\Contracts\CategoryRepositoryInterface;
 use \App\Contracts\SessionInterface;
 use \App\Contracts\TransactionRepositoryInterface;
 use \App\Contracts\UserRepositoryInterface;
+use App\Contracts\VerificationCodeRepositoryInterface;
 use \App\Middleware\RouteNotFoundMiddleware;
 use \App\Services\AuthService;
 use \App\Repository\CategoryRepository;
 use \App\Repository\UserRepository;
 use \App\Repository\TransactionRepository;
 use Doctrine\DBAL\Logging\Middleware;
+use PHPMailer\PHPMailer\PHPMailer;
 use Slim\Csrf\Guard;
 use Slim\Psr7\Factory\ResponseFactory;
 
@@ -51,11 +54,12 @@ return [
         return $twig;
     },
     SessionInterface::class => fn() => new Session(),
-    AuthInterface::class => fn(UserRepositoryInterface $userRepository) => new AuthService($userRepository),
+    AuthInterface::class => fn(UserRepositoryInterface $userRepository, VerificationCodeRepositoryInterface $verificationCodeRepository, PHPMailer $phpMailer) => new AuthService($userRepository, $verificationCodeRepository, $phpMailer),
     UserRepositoryInterface::class => fn(EntityManager $entityManager) => new UserRepository($entityManager),
     TransactionRepositoryInterface::class => fn(EntityManager $entityManager, SessionInterface $session) => new TransactionRepository($entityManager, $session),
     CategoryRepositoryInterface::class => fn(EntityManager $entityManager, SessionInterface $session) => new CategoryRepository($entityManager, $session),
     Guard::class => fn(ResponseFactory $responseFactory) => new Guard($responseFactory, persistentTokenMode: true),
     RouteNotFoundMiddleware::class => fn(ResponseFactory $responseFactory, SessionInterface $session) => new RouteNotFoundMiddleware($responseFactory, $session),
     BadRequestMiddleware::class => fn(ResponseFactory $responseFactory) => new BadRequestMiddleware($responseFactory),
+    VerificationCodeRepositoryInterface::class => fn(EntityManager $entityManager, SessionInterface $session) => new VerificationCodeRepository($entityManager, $session)
 ];

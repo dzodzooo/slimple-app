@@ -45,6 +45,7 @@ class UserController
             $this->session->set('user', $user);
             $this->session->unset('errors');
             $this->session->unset('oldData');
+            $this->authService->sendVerificationCode($user);
             return $response
                 ->withStatus(StatusCodeInterface::STATUS_FOUND)
                 ->withHeader('Location', '/');
@@ -84,5 +85,11 @@ class UserController
     {
         $this->session->reset();
         return $response->withStatus(StatusCodeInterface::STATUS_FOUND)->withHeader('Location', '/login');
+    }
+    public function verify(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    {
+        if ($this->authService->tryVerify($request->getParsedBody()['code']))
+            return $response->withStatus(StatusCodeInterface::STATUS_OK);
+        return $response->withStatus(StatusCodeInterface::STATUS_BAD_REQUEST);
     }
 }

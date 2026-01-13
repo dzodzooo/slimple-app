@@ -9,4 +9,6 @@ interface AuthInterface
     public function userExists(array $userData): UserDTO|null;
     public function register(array $userData);
     public function login(array $userData);
+    public function sendVerificationCode(UserDTO $user);
+    public function tryVerify(string $code): bool;
 }

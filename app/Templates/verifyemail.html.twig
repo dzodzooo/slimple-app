@@ -1,0 +1,16 @@
+<form method="POST" action="/verify">
+  <input
+    type="hidden"
+    id="csrf_name"
+    name="{{ csrf.NameKey }}"
+    value="{{ csrf.Name }}"
+  />
+  <input
+    type="hidden"
+    id="csrf_value"
+    name="{{ csrf.ValueKey }}"
+    value="{{ csrf.Value }}"
+  />
+  <input type="text" name="code" value="" />
+  <button type="submit">verify</button>
+</form>
