@@ -43,8 +43,10 @@ class CategoryController
     public function update(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $categoryData = $request->getParsedBody()['category'];
-        $this->categoryRepository->update($categoryData);
-        return $response->withStatus(StatusCodeInterface::STATUS_OK);
+        if (!$this->categoryRepository->update($categoryData)) {
+            return $response->withStatus(StatusCodeInterface::STATUS_BAD_REQUEST);
+        }
+        return $response->withStatus(StatusCodeInterface::STATUS_OK)->withHeader('blep', 'blep');
     }
     public function delete(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {

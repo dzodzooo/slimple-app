@@ -48,7 +48,8 @@ export function catSendPutRequest() {
     },
   })
     .then((response) => {
-      if (response["status"] == 200) {
+      console.log(response);
+      if (response.ok) {
         markUpdateSuccessful(category);
       } else {
         markUpdateFailed(category);

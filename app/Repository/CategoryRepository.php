@@ -36,19 +36,27 @@ class CategoryRepository implements CategoryRepositoryInterface
         $categories = $this->repository->findBy(['user' => $user]);
         return $categories;
     }
-    public function update(array $categoryData)
+    public function update(array $categoryData): bool
     {
-        $category = $this->entityManager->getReference(Category::class, $categoryData['id']);
+        $category = $this->entityManager->find(Category::class, $categoryData['id']);
+        if ($category === null) {
+            return false;
+        }
         $category->setName($categoryData['name']);
         $this->entityManager->persist($category);
         $this->entityManager->flush();
+        return true;
     }
 
-    public function delete(int $categoryId)
+    public function delete(int $categoryId): bool
     {
-        $category = $this->entityManager->getReference(Category::class, $categoryId);
+        $category = $this->entityManager->find(Category::class, $categoryId);
+        if (!$category) {
+            return false;
+        }
         $this->entityManager->remove($category);
         $this->entityManager->flush();
+        return true;
     }
     public function getByName(string $name): Category|null
     {

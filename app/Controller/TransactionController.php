@@ -48,8 +48,11 @@ class TransactionController
     public function update(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $transactionData = $request->getParsedBody()['transaction'];
-        $this->transactionService->update($transactionData);
-        return $response->withStatus(StatusCodeInterface::STATUS_OK);
+        if ($this->transactionService->update($transactionData)) {
+            var_dump($transactionData);
+            return $response->withStatus(StatusCodeInterface::STATUS_OK);
+        }
+        return $response->withStatus(StatusCodeInterface::STATUS_BAD_REQUEST);
     }
 
     public function delete(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface

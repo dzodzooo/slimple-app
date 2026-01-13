@@ -24,10 +24,6 @@ class TransactionService
         private readonly SessionInterface $session
     ) {
     }
-    public function addTransactionsFromFile(string $filename)
-    {
-
-    }
     public function getAllTransactionsAndCategories()
     {
         $transactions = $this->transactionRepository->getAll();

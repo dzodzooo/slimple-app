@@ -6,6 +6,6 @@ interface TransactionRepositoryInterface
 {
     public function create(array $transactionData);
     public function getAll();
-    public function update(array $transactionData);
-    public function delete(int $id);
+    public function update(array $transactionData): bool;
+    public function delete(int $id): bool;
 }

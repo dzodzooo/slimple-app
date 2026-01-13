@@ -50,6 +50,9 @@ class TransactionRepository implements TransactionRepositoryInterface
         }
         $userRepository = $this->entityManager->getRepository(User::class);
         $user = $userRepository->find($userDTO->id);
+        if ($user === null) {
+            return [];
+        }
 
         $categoryRepository = $this->entityManager->getRepository(Category::class);
         $categories = $categoryRepository->findBy(['id' => $transactionData['category'], 'user' => $user]);
@@ -59,25 +62,33 @@ class TransactionRepository implements TransactionRepositoryInterface
         $this->entityManager->flush();
     }
 
-    public function update(array $transactionData)
+    public function update(array $transactionData): bool
     {
-        var_dump($transactionData);
         $transaction = $this->entityManager->find(Transaction::class, $transactionData['id']);
+        if ($transaction === null) {
+            return false;
+        }
 
         $transaction->setAmount((float) $transactionData['amount']);
         $transaction->setDate(new DateTime($transactionData['date']));
         $transaction->setDescription($transactionData['description']);
         $category = $this->entityManager->find(Category::class, $transactionData['categoryId']);
-        $transaction->setCategory($category);
+        var_dump($category);
+        if ($category !== null)
+            $transaction->setCategory($category);
 
         $this->entityManager->persist($transaction);
         $this->entityManager->flush();
+        return true;
     }
 
-    public function delete(int $id)
+    public function delete(int $id): bool
     {
         $transaction = $this->entityManager->find(Transaction::class, $id);
+        if (!$transaction)
+            return false;
         $this->entityManager->remove($transaction);
         $this->entityManager->flush();
+        return true;
     }
 }

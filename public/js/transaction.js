@@ -94,7 +94,7 @@ export function transactionSendPutRequest() {
     },
   })
     .then((response) => {
-      if (response["status"] == 200) {
+      if (response.ok) {
         markUpdateSuccessful(transaction);
       } else {
         markUpdateFailed(transaction);
@@ -136,12 +136,14 @@ function markUpdateSuccessful(transaction) {
     `transaction_row${transaction.id}`
   );
   transaction_tr.classList.add("update-successful");
+  setTimeout(markUpdateUnknown, 3000, transaction);
 }
 function markUpdateFailed(transaction) {
   let transaction_tr = document.getElementById(
     `transaction_row${transaction.id}`
   );
   transaction_tr.classList.add("update-failed");
+  setTimeout(markUpdateUnknown, 3000, transaction);
 }
 function markUpdateUnknown(transaction) {
   let transaction_tr = document.getElementById(
