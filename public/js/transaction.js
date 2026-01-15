@@ -39,12 +39,11 @@ function getTransactionData(id) {
 
   let category = document.getElementById(`transaction_category${id}`);
   transaction.category = category.dataset.id;
-  console.log(transaction);
+  transaction;
   return transaction;
 }
 function sanitize(string) {
   let sanitized = string.match(/[^\n +].+[^\n +]/g)[0];
-  console.log(sanitized);
   return sanitized;
 }
 
@@ -136,14 +135,14 @@ function markUpdateSuccessful(transaction) {
     `transaction_row${transaction.id}`
   );
   transaction_tr.classList.add("update-successful");
-  setTimeout(markUpdateUnknown, 3000, transaction);
+  setTimeout(markUpdateUnknown, 5000, transaction);
 }
 function markUpdateFailed(transaction) {
   let transaction_tr = document.getElementById(
     `transaction_row${transaction.id}`
   );
   transaction_tr.classList.add("update-failed");
-  setTimeout(markUpdateUnknown, 3000, transaction);
+  setTimeout(markUpdateUnknown, 5000, transaction);
 }
 function markUpdateUnknown(transaction) {
   let transaction_tr = document.getElementById(

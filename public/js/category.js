@@ -48,7 +48,6 @@ export function catSendPutRequest() {
     },
   })
     .then((response) => {
-      console.log(response);
       if (response.ok) {
         markUpdateSuccessful(category);
       } else {
@@ -68,10 +67,12 @@ function catRenderUpdated(category) {
 function markUpdateSuccessful(category) {
   let category_tr = document.getElementById(`category_row${category.id}`);
   category_tr.classList.add("update-successful");
+  setTimeout(markUpdateUnknown, 5000, category);
 }
 function markUpdateFailed(category) {
   let category_tr = document.getElementById(`category_row${category.id}`);
   category_tr.classList.add("update-failed");
+  setTimeout(markUpdateUnknown, 5000, category);
 }
 function markUpdateUnknown(category) {
   let category_tr = document.getElementById(`category_row${category.id}`);
@@ -84,7 +85,6 @@ export function catSetup() {
   let length = elements.length;
   for (let index = 0; index < length; index++) {
     const element = elements[index];
-
     element.addEventListener("click", catOpenModal);
   }
 }

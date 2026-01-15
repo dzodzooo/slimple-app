@@ -1,7 +1,10 @@
+const path = require("path");
+
 module.exports = {
-  entry: __dirname + "/public/js/script.js",
+  mode: "production",
+  entry: path.resolve(__dirname, "public/js/script.js"),
   output: {
-    path: __dirname + "/public/js",
+    path: path.resolve(__dirname + "/public/js"),
     filename: "bundle.js",
   },
 };
